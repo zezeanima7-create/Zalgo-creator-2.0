@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zalgo Lab</title>
+<style>
+body {
+  background: #101014;
+  color: #f2f2f7;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+h1 { color: #b69cff; }
+textarea, input, select, button {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 9px;
+  border: 1px solid #45404f;
+  background: #1d1b24;
+  color: white;
+  font-size: 16px;
+}
+button { background: #7551c9; border: 0; font-weight: bold; }
+#saida {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  max-height: 320px;
+  overflow: auto;
+  padding: 12px;
+  background: #19171f;
+  border-radius: 9px;
+}
+</style>
+</head>
+<body>
+<h1>𖤐 Zalgo Lab</h1>
+<p>Gerador de texto distorcido para testes visuais locais.</p>
+
+<label>Texto base</label>
+<input id="base" value="ZALGO">
+
+<label>Quantidade de caracteres-base (máximo 2000)</label>
+<input id="quantidade" type="number" min="1" max="2000" value="100">
+
+<label>Intensidade</label>
+<select id="intensidade">
+  <option value="2">Leve</option>
+  <option value="5" selected>Média</option>
+  <option value="8">Alta</option>
+</select>
+
+<button id="gerar">Gerar texto</button>
+<button id="copiar">Copiar resultado</button>
+<button id="limpar">Limpar</button>
+
+<p id="status">Pronto.</p>
+<div id="saida"></div>
+
+<script>
+const marcas = [
+  '\u0300','\u0301','\u0302','\u0303','\u0304',
+  '\u0307','\u0308','\u030A','\u0310','\u0311',
+  '\u0312','\u0315','\u031A','\u033D','\u0342',
+  '\u0346','\u0350','\u0351','\u0357','\u035B'
+];
+
+const base = document.getElementById('base');
+const quantidade = document.getElementById('quantidade');
+const intensidade = document.getElementById('intensidade');
+const saida = document.getElementById('saida');
+const status = document.getElementById('status');
+
+document.getElementById('gerar').addEventListener('click', () => {
+  const texto = base.value || 'Z';
+  const n = Math.max(1, Math.min(2000, Number(quantidade.value) || 100));
+  const nivel = Number(intensidade.value);
+  let resultado = '';
+
+  for (let i = 0; i < n; i++) {
+    resultado += texto[i % texto.length];
+    const total = 1 + Math.floor(Math.random() * nivel);
+    for (let j = 0; j < total; j++) {
+      resultado += marcas[Math.floor(Math.random() * marcas.length)];
+    }
+  }
+
+  saida.textContent = resultado;
+  status.textContent = `Gerado: ${n} caracteres-base.`;
+});
+
+document.getElementById('copiar').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(saida.textContent);
+    status.textContent = 'Texto copiado!';
+  } catch {
+    status.textContent = 'Não foi possível copiar automaticamente; selecione o texto e copie.';
+  }
+});
+
+document.getElementById('limpar').addEventListener('click', () => {
+  saida.textContent = '';
+  status.textContent = 'Resultado limpo.';
+});
+</script>
+</body>
+</html>
