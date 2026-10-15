@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#100b1c">
-  <meta name="description" content="Zalgo Lab: transforme textos comuns em textos Zalgo com efeitos glitch.">
+  <meta name="description" content="Zalgo Lab: crie textos Zalgo e efeitos glitch gratuitamente.">
   <title>Zalgo Lab — Gerador de Texto</title>
 
   <style>
@@ -24,13 +24,17 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       padding: 20px 14px;
+      min-height: 100vh;
       background: var(--bg);
       color: var(--text);
       font-family: system-ui, Arial, sans-serif;
-      min-height: 100vh;
     }
 
     .container {
@@ -41,23 +45,23 @@
 
     header {
       text-align: center;
-      padding: 20px 0 24px;
+      padding: 24px 0 28px;
     }
 
     .logo {
-      font-size: clamp(34px, 8vw, 52px);
+      margin: 0;
+      font-size: clamp(38px, 9vw, 58px);
       font-weight: 900;
       letter-spacing: -2px;
       background: linear-gradient(90deg, #c084fc, #f0abfc);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin: 0;
     }
 
     header p {
       color: var(--muted);
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .panel {
@@ -65,12 +69,12 @@
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 18px;
-      margin-bottom: 16px;
+      margin-bottom: 17px;
     }
 
     h2 {
       font-size: 19px;
-      margin: 0 0 14px;
+      margin: 0 0 16px;
     }
 
     label {
@@ -81,8 +85,9 @@
     }
 
     textarea {
+      display: block;
       width: 100%;
-      min-height: 120px;
+      min-height: 125px;
       resize: vertical;
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -102,7 +107,7 @@
       text-align: right;
       font-size: 12px;
       color: var(--muted);
-      margin-top: 6px;
+      margin-top: 7px;
     }
 
     select {
@@ -123,8 +128,9 @@
     .intensity-label {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      margin-top: 18px;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
     }
 
     .intensity-label span {
@@ -140,25 +146,26 @@
     }
 
     button {
+      flex: 1 1 130px;
+      padding: 12px 15px;
       border: 0;
       border-radius: 10px;
-      padding: 12px 15px;
       background: var(--panel2);
       color: var(--text);
       font: inherit;
       font-weight: 700;
       cursor: pointer;
-      flex: 1 1 130px;
-      transition: transform .15s, opacity .15s;
+      transition: opacity 0.15s, transform 0.15s;
     }
 
     button:active {
-      transform: scale(.98);
+      transform: scale(0.98);
     }
 
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 3px;
     }
 
     .primary {
@@ -166,6 +173,7 @@
     }
 
     .share {
+      width: 100%;
       background: linear-gradient(100deg, #9333ea, #db2777);
     }
 
@@ -189,13 +197,21 @@
       font-size: 13px;
       min-height: 20px;
       margin-top: 10px;
+      overflow-wrap: anywhere;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
     footer {
       text-align: center;
-      padding: 20px 8px;
+      padding: 22px 8px;
       color: var(--muted);
       font-size: 13px;
+      line-height: 2;
     }
 
     footer a {
@@ -207,27 +223,23 @@
     footer a:hover {
       text-decoration: underline;
     }
-
-    .small {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.6;
-    }
   </style>
 </head>
 
 <body>
   <div class="container">
+
     <header>
       <h1 class="logo">Zalgo Lab</h1>
-      <p>Transforme seus textos em puro glitch. ✨</p>
+      <p>Transforme seus textos em puro glitch. 👾</p>
     </header>
 
     <main>
       <section class="panel">
-        <h2>✍️ Seu texto</h2>
+        <h2>✍️ Criar texto Zalgo</h2>
 
-        <label for="entrada">Digite ou cole seu texto aqui:</label>
+        <label for="entrada">Digite ou cole seu texto:</label>
+
         <textarea
           id="entrada"
           maxlength="2000"
@@ -251,8 +263,9 @@
           value="5"
         >
 
-        <div style="margin-top:18px">
+        <div style="margin-top: 20px;">
           <label for="modo">Tipo de efeito</label>
+
           <select id="modo">
             <option value="todos">Completo — acima e abaixo</option>
             <option value="cima">Sinais acima</option>
@@ -262,21 +275,33 @@
         </div>
 
         <div class="buttons">
-          <button class="primary" id="gerar">⚡ Gerar Zalgo</button>
-          <button id="limpar">🗑️ Limpar</button>
+          <button class="primary" id="gerar">
+            ⚡ Gerar Zalgo
+          </button>
+
+          <button id="limpar">
+            🗑️ Limpar
+          </button>
         </div>
       </section>
 
       <section class="panel">
         <h2>👾 Resultado</h2>
 
-        <div id="resultado" class="output empty" aria-live="polite">
-          Seu texto transformado aparecerá aqui...
-        </div>
+        <div
+          id="resultado"
+          class="output empty"
+          aria-live="polite"
+        >Seu texto transformado aparecerá aqui...</div>
 
         <div class="buttons">
-          <button class="primary" id="copiar">📋 Copiar texto</button>
-          <button id="parar">⏹️ Interromper efeito</button>
+          <button class="primary" id="copiar">
+            📋 Copiar texto
+          </button>
+
+          <button id="interromper">
+            ⏹️ Interromper efeito
+          </button>
         </div>
 
         <div id="status" class="status" aria-live="polite"></div>
@@ -284,18 +309,21 @@
 
       <section class="panel">
         <h2>📤 Compartilhe o Zalgo Lab</h2>
+
         <p class="small">
-          Gostou do gerador? Compartilhe com seus amigos!
+          Gostou do gerador? Compartilhe com seus amigos e mostre
+          o Zalgo Lab para todo mundo!
         </p>
 
-        <button class="share" id="compartilhar" style="width:100%">
+        <button class="share" id="compartilhar">
           📤 Compartilhe
         </button>
       </section>
     </main>
 
     <footer>
-      <p>© 2026 Zalgo Lab</p>
+      <div>© 2026 Zalgo Lab</div>
+
       <a href="./creditos.html">Créditos</a>
       |
       <a href="./privacidade.html">Política de Privacidade</a>
@@ -303,6 +331,8 @@
   </div>
 
   <script>
+    "use strict";
+
     const entrada = document.getElementById("entrada");
     const resultado = document.getElementById("resultado");
     const intensidade = document.getElementById("intensidade");
@@ -311,9 +341,10 @@
     const contador = document.getElementById("contador");
     const status = document.getElementById("status");
 
-    let interrompido = false;
+    let geracaoInterrompida = false;
+    let ultimoTextoGerado = "";
 
-    const cima = [
+    const sinaisCima = [
       "\u030d", "\u030e", "\u0304", "\u0305", "\u033f",
       "\u0311", "\u0306", "\u0310", "\u0352", "\u0357",
       "\u0351", "\u0307", "\u0308", "\u030a", "\u0342",
@@ -322,7 +353,7 @@
       "\u0301", "\u030b", "\u030f", "\u0312", "\u0313"
     ];
 
-    const baixo = [
+    const sinaisBaixo = [
       "\u0316", "\u0317", "\u0318", "\u0319", "\u031c",
       "\u031d", "\u031e", "\u031f", "\u0320", "\u0324",
       "\u0325", "\u0326", "\u0329", "\u032a", "\u032b",
@@ -331,70 +362,74 @@
       "\u033b", "\u033c", "\u0345"
     ];
 
-    const meio = [
+    const sinaisMeio = [
       "\u0315", "\u031b", "\u0340", "\u0341", "\u0358",
       "\u1ab0", "\u1ab1", "\u1ab2", "\u20d0", "\u20d1",
       "\u20d2", "\u20d3", "\u20d4", "\u20d5", "\u20d6",
       "\u20d7", "\u20db", "\u20dc"
     ];
 
-    function aleatorio(lista) {
+    function escolherAleatorio(lista) {
       return lista[Math.floor(Math.random() * lista.length)];
+    }
+
+    function atualizarContador() {
+      contador.textContent = entrada.value.length;
     }
 
     function gerarZalgo(texto, nivel, tipo) {
       let saida = "";
+      let indice = 0;
 
       for (const caractere of texto) {
-        if (interrompido) {
-          saida += caractere;
-          continue;
+        if (geracaoInterrompida) {
+          saida += texto.slice(indice);
+          break;
         }
 
         saida += caractere;
+        indice += caractere.length;
 
-        // Não adiciona sinais em espaços ou quebras de linha.
-        if (/\s/.test(caractere)) continue;
+        if (/\s/.test(caractere)) {
+          continue;
+        }
 
         const quantidade = Math.ceil(nivel / 2);
 
         for (let i = 0; i < quantidade; i++) {
           if (tipo === "todos" || tipo === "cima") {
-            saida += aleatorio(cima);
+            saida += escolherAleatorio(sinaisCima);
           }
 
           if (tipo === "todos" || tipo === "baixo") {
-            saida += aleatorio(baixo);
+            saida += escolherAleatorio(sinaisBaixo);
           }
 
           if (tipo === "meio") {
-            saida += aleatorio(meio);
+            saida += escolherAleatorio(sinaisMeio);
           }
         }
 
-        // Intensidades maiores adicionam mais sinais.
         if (nivel >= 7) {
-          for (let i = 0; i < Math.floor(nivel / 3); i++) {
+          const extras = Math.floor(nivel / 3);
+
+          for (let i = 0; i < extras; i++) {
             if (tipo === "todos" || tipo === "cima") {
-              saida += aleatorio(cima);
+              saida += escolherAleatorio(sinaisCima);
             }
 
             if (tipo === "todos" || tipo === "baixo") {
-              saida += aleatorio(baixo);
+              saida += escolherAleatorio(sinaisBaixo);
             }
 
             if (tipo === "meio") {
-              saida += aleatorio(meio);
+              saida += escolherAleatorio(sinaisMeio);
             }
           }
         }
       }
 
       return saida;
-    }
-
-    function atualizarContador() {
-      contador.textContent = entrada.value.length;
     }
 
     entrada.addEventListener("input", atualizarContador);
@@ -412,7 +447,7 @@
         return;
       }
 
-      interrompido = false;
+      geracaoInterrompida = false;
       status.textContent = "";
 
       const textoGerado = gerarZalgo(
@@ -421,81 +456,97 @@
         modo.value
       );
 
+      ultimoTextoGerado = textoGerado;
       resultado.textContent = textoGerado;
       resultado.classList.remove("empty");
-      status.textContent = "Texto Zalgo gerado com sucesso!";
+
+      status.textContent = geracaoInterrompida
+        ? "Geração interrompida."
+        : "Texto Zalgo gerado com sucesso!";
     });
 
-    document.getElementById("parar").addEventListener("click", () => {
-      interrompido = true;
-      status.textContent = "Interrupção ativada para a próxima geração.";
+    document.getElementById("interromper").addEventListener("click", () => {
+      geracaoInterrompida = true;
+      status.textContent =
+        "Interrupção ativada. A próxima geração será interrompida.";
     });
 
     document.getElementById("limpar").addEventListener("click", () => {
       entrada.value = "";
-      resultado.textContent = "Seu texto transformado aparecerá aqui...";
+      resultado.textContent =
+        "Seu texto transformado aparecerá aqui...";
       resultado.classList.add("empty");
+      ultimoTextoGerado = "";
       status.textContent = "";
-      interrompido = false;
+      geracaoInterrompida = false;
       atualizarContador();
     });
 
-    document.getElementById("copiar").addEventListener("click", async () => {
-      const texto = resultado.classList.contains("empty")
-        ? ""
-        : resultado.textContent;
+    async function copiarTexto(texto) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(texto);
+        return;
+      }
 
-      if (!texto) {
+      const campo = document.createElement("textarea");
+      campo.value = texto;
+      campo.style.position = "fixed";
+      campo.style.opacity = "0";
+      document.body.appendChild(campo);
+      campo.select();
+
+      const copiou = document.execCommand("copy");
+      campo.remove();
+
+      if (!copiou) {
+        throw new Error("Não foi possível copiar.");
+      }
+    }
+
+    document.getElementById("copiar").addEventListener("click", async () => {
+      if (!ultimoTextoGerado) {
         status.textContent = "Gere um texto antes de copiar.";
         return;
       }
 
       try {
-        await navigator.clipboard.writeText(texto);
-        status.textContent = "Texto copiado!";
+        await copiarTexto(ultimoTextoGerado);
+        status.textContent = "✅ Texto copiado!";
       } catch {
-        const campo = document.createElement("textarea");
-        campo.value = texto;
-        document.body.appendChild(campo);
-        campo.select();
+        status.textContent =
+          "Não foi possível copiar automaticamente neste navegador.";
+      }
+    });
+
+    document.getElementById("compartilhar").addEventListener(
+      "click",
+      async () => {
+        const mensagem =
+          "Teste esse app Zalgo Lab! 😈🔥\n" +
+          "Crie textos glitch e deixe suas mensagens bizarras!\n\n" +
+          "🌐 https://zezeanima7-create.github.io/Zalgo-creator-2.0/";
+
+        const dados = {
+          title: "Zalgo Lab",
+          text: mensagem
+        };
 
         try {
-          document.execCommand("copy");
-          status.textContent = "Texto copiado!";
-        } catch {
-          status.textContent = "Não foi possível copiar automaticamente.";
-        }
-
-        campo.remove();
-      }
-    });
-
-    document.getElementById("compartilhar").addEventListener("click", async () => {
-      const dados = {
-        title: "Zalgo Lab",
-        text: "Teste esse app Zalgo Lab! 😈🔥 Crie textos glitch e deixe suas mensagens bizarras!",
-        url: "https://zezeanima7-create.github.io/Zalgo-creator-2.0/"
-      };
-
-      try {
-        if (navigator.share) {
-          await navigator.share(dados);
-        } else {
-          const mensagem = dados.text + "\n\n" + dados.url;
-
-          try {
-            await navigator.clipboard.writeText(mensagem);
-            alert("Mensagem e link copiados! Agora é só compartilhar.");
-          } catch {
-            prompt("Copie a mensagem para compartilhar:", mensagem);
+          if (navigator.share) {
+            await navigator.share(dados);
+          } else {
+            await copiarTexto(mensagem);
+            alert("Mensagem copiada! Agora você pode compartilhá-la.");
           }
-        }
-      } catch (erro) {
-        if (erro.name !== "AbortError") {
-          alert("Não foi possível abrir o compartilhamento.");
+        } catch (erro) {
+          if (erro.name === "AbortError") {
+            return;
+          }
+
+          prompt("Copie a mensagem para compartilhar:", mensagem);
         }
       }
-    });
+    );
   </script>
 </body>
   </html>
