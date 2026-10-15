@@ -59,7 +59,6 @@
     }
 
     main { padding: 48px 18px 30px; }
-
     .intro { margin-bottom: 28px; }
 
     h1 {
@@ -68,7 +67,10 @@
       margin: 0 0 10px;
     }
 
-    p { color: var(--muted); line-height: 1.6; }
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
 
     .card {
       background: var(--panel);
@@ -129,41 +131,6 @@
 
     button:hover { filter: brightness(1.08); }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .stat {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 15px;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .stat-number {
-      font-size: 25px;
-      font-weight: 750;
-      margin-top: 8px;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      margin-right: 7px;
-      background: #8b8e95;
-    }
-
-    .dot.green { background: #65b987; }
-
     .status {
       font-size: 12px;
       color: var(--muted);
@@ -217,18 +184,6 @@
       <textarea id="result" placeholder="Seu resultado aparecerá aqui..."></textarea>
       <p class="status" id="message" aria-live="polite">Pronto para começar.</p>
     </section>
-
-    <section class="stats">
-      <div class="stat">
-        <div class="stat-label"><span class="dot green"></span>Ativos agora</div>
-        <div class="stat-number" id="active">—</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label"><span class="dot"></span>Visitas de 5s+</div>
-        <div class="stat-number" id="qualified">—</div>
-      </div>
-    </section>
-    <p class="status" id="counterStatus">Conectando ao contador...</p>
   </main>
 
   <footer>
@@ -252,6 +207,7 @@
 
     document.getElementById("generate").onclick = () => {
       const text = source.value;
+
       if (!text) {
         message.textContent = "Digite alguma coisa primeiro.";
         return;
@@ -259,11 +215,19 @@
 
       result.value = Array.from(text).map(char => {
         if (char.trim() === "") return char;
+
         let output = char;
         const count = 1 + Math.floor(Math.random() * 3);
-        for (let i = 0; i < count; i++) output += randomMark(marks.up);
-        for (let i = 0; i < count; i++) output += randomMark(marks.mid);
-        for (let i = 0; i < count; i++) output += randomMark(marks.down);
+
+        for (let i = 0; i < count; i++)
+          output += randomMark(marks.up);
+
+        for (let i = 0; i < count; i++)
+          output += randomMark(marks.mid);
+
+        for (let i = 0; i < count; i++)
+          output += randomMark(marks.down);
+
         return output;
       }).join("");
 
@@ -282,7 +246,8 @@
       } catch {
         result.focus();
         result.select();
-        message.textContent = "Selecione o resultado e copie manualmente.";
+        message.textContent =
+          "Selecione o resultado e copie manualmente.";
       }
     };
 
@@ -291,46 +256,6 @@
       result.value = "";
       message.textContent = "Campos limpos.";
     };
-
-    // O Worker será consultado aqui. O contador só funciona
-    // quando a rota /count e o armazenamento estão configurados.
-    const WORKER_URL = "https://zalgo-counter.zezeanima7.workers.dev";
-    const counterStatus = document.getElementById("counterStatus");
-    const active = document.getElementById("active");
-    const qualified = document.getElementById("qualified");
-
-    let visitorId = sessionStorage.getItem("zalgoVisitorId");
-    if (!visitorId) {
-      visitorId = crypto.randomUUID();
-      sessionStorage.setItem("zalgoVisitorId", visitorId);
-    }
-
-    async function updateCounter() {
-      try {
-        const response = await fetch(WORKER_URL + "/count", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: visitorId, stayedFiveSeconds: true })
-        });
-
-        if (!response.ok) throw new Error("Contador indisponível");
-        const data = await response.json();
-
-        active.textContent = data.active ?? "—";
-        qualified.textContent = data.qualified ?? "—";
-        counterStatus.textContent = "Contador conectado.";
-      } catch {
-        active.textContent = "—";
-        qualified.textContent = "—";
-        counterStatus.textContent =
-          "Contador ainda não conectado. Verifique o Worker.";
-      }
-    }
-
-    setTimeout(() => {
-      updateCounter();
-      setInterval(updateCounter, 15000);
-    }, 5000);
   </script>
 </body>
 </html>
