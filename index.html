@@ -3,551 +3,334 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#100b1c">
-  <meta name="description" content="Zalgo Lab: crie textos Zalgo e efeitos glitch gratuitamente.">
-  <title>Zalgo Lab — Gerador de Texto</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#202124">
+  <meta name="description" content="Zalgo Creator 2.0 — crie textos distorcidos e personalizados.">
+  <title>Zalgo Creator 2.0</title>
   <style>
     :root {
-      --bg: #100b1c;
-      --panel: #1c142b;
-      --panel2: #271b3a;
-      --purple: #9b5cff;
-      --pink: #e879f9;
-      --text: #f8f5ff;
-      --muted: #b9adc9;
-      --border: #423052;
+      color-scheme: dark;
+      --bg: #18191b;
+      --panel: #222427;
+      --panel2: #292b2f;
+      --border: #383a3f;
+      --text: #f1f1f1;
+      --muted: #a5a7ad;
+      --accent: #d7d9de;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      padding: 20px 14px;
-      min-height: 100vh;
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, Arial, sans-serif;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 760px;
-      margin: 0 auto;
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
     }
 
     header {
-      text-align: center;
-      padding: 24px 0 28px;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
     }
 
-    .logo {
-      margin: 0;
-      font-size: clamp(38px, 9vw, 58px);
-      font-weight: 900;
-      letter-spacing: -2px;
-      background: linear-gradient(90deg, #c084fc, #f0abfc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .nav, main, footer {
+      max-width: 850px;
+      margin: auto;
     }
 
-    header p {
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 750;
+      letter-spacing: -.5px;
+    }
+
+    .version {
       color: var(--muted);
-      margin-top: 10px;
+      font-size: 12px;
+      margin-top: 3px;
     }
 
-    .panel {
+    main { padding: 48px 18px 30px; }
+
+    .intro { margin-bottom: 28px; }
+
+    h1 {
+      font-size: clamp(28px, 6vw, 42px);
+      letter-spacing: -1.5px;
+      margin: 0 0 10px;
+    }
+
+    p { color: var(--muted); line-height: 1.6; }
+
+    .card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 17px;
-    }
-
-    h2 {
-      font-size: 19px;
-      margin: 0 0 16px;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
     }
 
     label {
       display: block;
       font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 8px;
+      font-weight: 650;
+      margin-bottom: 10px;
     }
 
     textarea {
-      display: block;
       width: 100%;
       min-height: 125px;
       resize: vertical;
+      background: #191a1c;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 13px;
-      background: #120d1d;
+      border-radius: 10px;
       color: var(--text);
+      padding: 14px;
       font: inherit;
       outline: none;
     }
 
-    textarea:focus,
-    select:focus {
-      border-color: var(--purple);
+    textarea:focus, button:focus-visible {
+      outline: 2px solid #a9abb1;
+      outline-offset: 2px;
     }
 
-    .counter {
-      text-align: right;
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 7px;
-    }
-
-    select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #120d1d;
-      color: var(--text);
-      font: inherit;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--purple);
-    }
-
-    .intensity-label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .intensity-label span {
-      color: var(--pink);
-      font-weight: bold;
-    }
-
-    .buttons {
+    .controls {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
     button {
-      flex: 1 1 130px;
-      padding: 12px 15px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--panel2);
-      color: var(--text);
+      background: var(--accent);
+      color: #202124;
+      border: 1px solid var(--accent);
+      border-radius: 9px;
+      padding: 11px 16px;
       font: inherit;
       font-weight: 700;
       cursor: pointer;
-      transition: opacity 0.15s, transform 0.15s;
     }
 
-    button:active {
-      transform: scale(0.98);
+    button.secondary {
+      background: var(--panel2);
+      border-color: var(--border);
+      color: var(--text);
     }
 
-    button:focus-visible,
-    a:focus-visible {
-      outline: 2px solid var(--pink);
-      outline-offset: 3px;
+    button:hover { filter: brightness(1.08); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .primary {
-      background: linear-gradient(100deg, #7c3aed, #a855f7);
-    }
-
-    .share {
-      width: 100%;
-      background: linear-gradient(100deg, #9333ea, #db2777);
-    }
-
-    .output {
-      min-height: 100px;
-      overflow-wrap: anywhere;
-      white-space: pre-wrap;
-      line-height: 1.8;
-      padding: 14px;
-      border-radius: 12px;
-      background: #120d1d;
+    .stat {
+      background: var(--panel);
       border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 15px;
     }
 
-    .empty {
-      color: #81738f;
-    }
-
-    .status {
-      color: var(--pink);
-      font-size: 13px;
-      min-height: 20px;
-      margin-top: 10px;
-      overflow-wrap: anywhere;
-    }
-
-    .small {
+    .stat-label {
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.6;
+    }
+
+    .stat-number {
+      font-size: 25px;
+      font-weight: 750;
+      margin-top: 8px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-right: 7px;
+      background: #8b8e95;
+    }
+
+    .dot.green { background: #65b987; }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
     }
 
     footer {
-      text-align: center;
-      padding: 22px 8px;
+      padding: 20px;
+      border-top: 1px solid var(--border);
       color: var(--muted);
-      font-size: 13px;
-      line-height: 2;
+      font-size: 12px;
     }
 
-    footer a {
-      color: #c084fc;
-      text-decoration: none;
-      margin: 0 5px;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
+    @media (max-width: 480px) {
+      main { padding-top: 32px; }
+      .card { padding: 15px; }
+      .controls button { flex: 1; }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
+  <header>
+    <div class="nav">
+      <div>
+        <div class="brand">Zalgo Creator</div>
+        <div class="version">Versão 2.0</div>
+      </div>
+      <span class="version">TEXT TOOL</span>
+    </div>
+  </header>
 
-    <header>
-      <h1 class="logo">Zalgo Lab</h1>
-      <p>Transforme seus textos em puro glitch. 👾</p>
-    </header>
+  <main>
+    <section class="intro">
+      <h1>Crie seu texto.</h1>
+      <p>Transforme palavras comuns em textos Zalgo personalizados.</p>
+    </section>
 
-    <main>
-      <section class="panel">
-        <h2>✍️ Criar texto Zalgo</h2>
+    <section class="card">
+      <label for="source">Texto original</label>
+      <textarea id="source" placeholder="Digite seu texto aqui..."></textarea>
 
-        <label for="entrada">Digite ou cole seu texto:</label>
+      <div class="controls">
+        <button id="generate">Gerar Zalgo</button>
+        <button class="secondary" id="copy">Copiar resultado</button>
+        <button class="secondary" id="clear">Limpar</button>
+      </div>
+    </section>
 
-        <textarea
-          id="entrada"
-          maxlength="2000"
-          placeholder="Digite algo para transformar..."
-        ></textarea>
+    <section class="card">
+      <label for="result">Resultado</label>
+      <textarea id="result" placeholder="Seu resultado aparecerá aqui..."></textarea>
+      <p class="status" id="message" aria-live="polite">Pronto para começar.</p>
+    </section>
 
-        <div class="counter">
-          <span id="contador">0</span>/2000 caracteres
-        </div>
+    <section class="stats">
+      <div class="stat">
+        <div class="stat-label"><span class="dot green"></span>Ativos agora</div>
+        <div class="stat-number" id="active">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label"><span class="dot"></span>Visitas de 5s+</div>
+        <div class="stat-number" id="qualified">—</div>
+      </div>
+    </section>
+    <p class="status" id="counterStatus">Conectando ao contador...</p>
+  </main>
 
-        <div class="intensity-label">
-          <label for="intensidade">Intensidade do efeito</label>
-          <span id="valorIntensidade">5</span>
-        </div>
-
-        <input
-          id="intensidade"
-          type="range"
-          min="1"
-          max="10"
-          value="5"
-        >
-
-        <div style="margin-top: 20px;">
-          <label for="modo">Tipo de efeito</label>
-
-          <select id="modo">
-            <option value="todos">Completo — acima e abaixo</option>
-            <option value="cima">Sinais acima</option>
-            <option value="baixo">Sinais abaixo</option>
-            <option value="meio">Glitch no meio</option>
-          </select>
-        </div>
-
-        <div class="buttons">
-          <button class="primary" id="gerar">
-            ⚡ Gerar Zalgo
-          </button>
-
-          <button id="limpar">
-            🗑️ Limpar
-          </button>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>👾 Resultado</h2>
-
-        <div
-          id="resultado"
-          class="output empty"
-          aria-live="polite"
-        >Seu texto transformado aparecerá aqui...</div>
-
-        <div class="buttons">
-          <button class="primary" id="copiar">
-            📋 Copiar texto
-          </button>
-
-          <button id="interromper">
-            ⏹️ Interromper efeito
-          </button>
-        </div>
-
-        <div id="status" class="status" aria-live="polite"></div>
-      </section>
-
-      <section class="panel">
-        <h2>📤 Compartilhe o Zalgo Lab</h2>
-
-        <p class="small">
-          Gostou do gerador? Compartilhe com seus amigos e mostre
-          o Zalgo Lab para todo mundo!
-        </p>
-
-        <button class="share" id="compartilhar">
-          📤 Compartilhe
-        </button>
-      </section>
-    </main>
-
-    <footer>
-      <div>© 2026 Zalgo Lab</div>
-
-      <a href="./creditos.html">Créditos</a>
-      |
-      <a href="./privacidade.html">Política de Privacidade</a>
-    </footer>
-  </div>
+  <footer>
+    Zalgo Creator 2.0 · Ferramenta gratuita de texto
+  </footer>
 
   <script>
-    "use strict";
+    const source = document.getElementById("source");
+    const result = document.getElementById("result");
+    const message = document.getElementById("message");
 
-    const entrada = document.getElementById("entrada");
-    const resultado = document.getElementById("resultado");
-    const intensidade = document.getElementById("intensidade");
-    const valorIntensidade = document.getElementById("valorIntensidade");
-    const modo = document.getElementById("modo");
-    const contador = document.getElementById("contador");
-    const status = document.getElementById("status");
+    const marks = {
+      up: ["\u030d","\u030e","\u0304","\u0305","\u033f","\u0311","\u0306"],
+      mid: ["\u0334","\u0335","\u0336","\u0337","\u0338"],
+      down: ["\u0316","\u0317","\u0318","\u0319","\u031c","\u0323","\u0324","\u0325"]
+    };
 
-    let geracaoInterrompida = false;
-    let ultimoTextoGerado = "";
-
-    const sinaisCima = [
-      "\u030d", "\u030e", "\u0304", "\u0305", "\u033f",
-      "\u0311", "\u0306", "\u0310", "\u0352", "\u0357",
-      "\u0351", "\u0307", "\u0308", "\u030a", "\u0342",
-      "\u0343", "\u0344", "\u034a", "\u034b", "\u034c",
-      "\u0303", "\u0302", "\u030c", "\u0350", "\u0300",
-      "\u0301", "\u030b", "\u030f", "\u0312", "\u0313"
-    ];
-
-    const sinaisBaixo = [
-      "\u0316", "\u0317", "\u0318", "\u0319", "\u031c",
-      "\u031d", "\u031e", "\u031f", "\u0320", "\u0324",
-      "\u0325", "\u0326", "\u0329", "\u032a", "\u032b",
-      "\u032c", "\u032d", "\u032e", "\u032f", "\u0330",
-      "\u0331", "\u0332", "\u0333", "\u0339", "\u033a",
-      "\u033b", "\u033c", "\u0345"
-    ];
-
-    const sinaisMeio = [
-      "\u0315", "\u031b", "\u0340", "\u0341", "\u0358",
-      "\u1ab0", "\u1ab1", "\u1ab2", "\u20d0", "\u20d1",
-      "\u20d2", "\u20d3", "\u20d4", "\u20d5", "\u20d6",
-      "\u20d7", "\u20db", "\u20dc"
-    ];
-
-    function escolherAleatorio(lista) {
-      return lista[Math.floor(Math.random() * lista.length)];
+    function randomMark(list) {
+      return list[Math.floor(Math.random() * list.length)];
     }
 
-    function atualizarContador() {
-      contador.textContent = entrada.value.length;
-    }
-
-    function gerarZalgo(texto, nivel, tipo) {
-      let saida = "";
-      let indice = 0;
-
-      for (const caractere of texto) {
-        if (geracaoInterrompida) {
-          saida += texto.slice(indice);
-          break;
-        }
-
-        saida += caractere;
-        indice += caractere.length;
-
-        if (/\s/.test(caractere)) {
-          continue;
-        }
-
-        const quantidade = Math.ceil(nivel / 2);
-
-        for (let i = 0; i < quantidade; i++) {
-          if (tipo === "todos" || tipo === "cima") {
-            saida += escolherAleatorio(sinaisCima);
-          }
-
-          if (tipo === "todos" || tipo === "baixo") {
-            saida += escolherAleatorio(sinaisBaixo);
-          }
-
-          if (tipo === "meio") {
-            saida += escolherAleatorio(sinaisMeio);
-          }
-        }
-
-        if (nivel >= 7) {
-          const extras = Math.floor(nivel / 3);
-
-          for (let i = 0; i < extras; i++) {
-            if (tipo === "todos" || tipo === "cima") {
-              saida += escolherAleatorio(sinaisCima);
-            }
-
-            if (tipo === "todos" || tipo === "baixo") {
-              saida += escolherAleatorio(sinaisBaixo);
-            }
-
-            if (tipo === "meio") {
-              saida += escolherAleatorio(sinaisMeio);
-            }
-          }
-        }
-      }
-
-      return saida;
-    }
-
-    entrada.addEventListener("input", atualizarContador);
-
-    intensidade.addEventListener("input", () => {
-      valorIntensidade.textContent = intensidade.value;
-    });
-
-    document.getElementById("gerar").addEventListener("click", () => {
-      const texto = entrada.value;
-
-      if (!texto.trim()) {
-        status.textContent = "Digite um texto primeiro!";
-        entrada.focus();
+    document.getElementById("generate").onclick = () => {
+      const text = source.value;
+      if (!text) {
+        message.textContent = "Digite alguma coisa primeiro.";
         return;
       }
 
-      geracaoInterrompida = false;
-      status.textContent = "";
+      result.value = Array.from(text).map(char => {
+        if (char.trim() === "") return char;
+        let output = char;
+        const count = 1 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < count; i++) output += randomMark(marks.up);
+        for (let i = 0; i < count; i++) output += randomMark(marks.mid);
+        for (let i = 0; i < count; i++) output += randomMark(marks.down);
+        return output;
+      }).join("");
 
-      const textoGerado = gerarZalgo(
-        texto,
-        Number(intensidade.value),
-        modo.value
-      );
+      message.textContent = "Texto Zalgo gerado.";
+    };
 
-      ultimoTextoGerado = textoGerado;
-      resultado.textContent = textoGerado;
-      resultado.classList.remove("empty");
-
-      status.textContent = geracaoInterrompida
-        ? "Geração interrompida."
-        : "Texto Zalgo gerado com sucesso!";
-    });
-
-    document.getElementById("interromper").addEventListener("click", () => {
-      geracaoInterrompida = true;
-      status.textContent =
-        "Interrupção ativada. A próxima geração será interrompida.";
-    });
-
-    document.getElementById("limpar").addEventListener("click", () => {
-      entrada.value = "";
-      resultado.textContent =
-        "Seu texto transformado aparecerá aqui...";
-      resultado.classList.add("empty");
-      ultimoTextoGerado = "";
-      status.textContent = "";
-      geracaoInterrompida = false;
-      atualizarContador();
-    });
-
-    async function copiarTexto(texto) {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(texto);
-        return;
-      }
-
-      const campo = document.createElement("textarea");
-      campo.value = texto;
-      campo.style.position = "fixed";
-      campo.style.opacity = "0";
-      document.body.appendChild(campo);
-      campo.select();
-
-      const copiou = document.execCommand("copy");
-      campo.remove();
-
-      if (!copiou) {
-        throw new Error("Não foi possível copiar.");
-      }
-    }
-
-    document.getElementById("copiar").addEventListener("click", async () => {
-      if (!ultimoTextoGerado) {
-        status.textContent = "Gere um texto antes de copiar.";
+    document.getElementById("copy").onclick = async () => {
+      if (!result.value) {
+        message.textContent = "Gere um texto antes de copiar.";
         return;
       }
 
       try {
-        await copiarTexto(ultimoTextoGerado);
-        status.textContent = "✅ Texto copiado!";
+        await navigator.clipboard.writeText(result.value);
+        message.textContent = "Texto copiado!";
       } catch {
-        status.textContent =
-          "Não foi possível copiar automaticamente neste navegador.";
+        result.focus();
+        result.select();
+        message.textContent = "Selecione o resultado e copie manualmente.";
       }
-    });
+    };
 
-    document.getElementById("compartilhar").addEventListener(
-      "click",
-      async () => {
-        const mensagem =
-          "Teste esse app Zalgo Lab! 😈🔥\n" +
-          "Crie textos glitch e deixe suas mensagens bizarras!\n\n" +
-          "🌐 https://zezeanima7-create.github.io/Zalgo-creator-2.0/";
+    document.getElementById("clear").onclick = () => {
+      source.value = "";
+      result.value = "";
+      message.textContent = "Campos limpos.";
+    };
 
-        const dados = {
-          title: "Zalgo Lab",
-          text: mensagem
-        };
+    // O Worker será consultado aqui. O contador só funciona
+    // quando a rota /count e o armazenamento estão configurados.
+    const WORKER_URL = "https://zalgo-counter.zezeanima7.workers.dev";
+    const counterStatus = document.getElementById("counterStatus");
+    const active = document.getElementById("active");
+    const qualified = document.getElementById("qualified");
 
-        try {
-          if (navigator.share) {
-            await navigator.share(dados);
-          } else {
-            await copiarTexto(mensagem);
-            alert("Mensagem copiada! Agora você pode compartilhá-la.");
-          }
-        } catch (erro) {
-          if (erro.name === "AbortError") {
-            return;
-          }
+    let visitorId = sessionStorage.getItem("zalgoVisitorId");
+    if (!visitorId) {
+      visitorId = crypto.randomUUID();
+      sessionStorage.setItem("zalgoVisitorId", visitorId);
+    }
 
-          prompt("Copie a mensagem para compartilhar:", mensagem);
-        }
+    async function updateCounter() {
+      try {
+        const response = await fetch(WORKER_URL + "/count", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: visitorId, stayedFiveSeconds: true })
+        });
+
+        if (!response.ok) throw new Error("Contador indisponível");
+        const data = await response.json();
+
+        active.textContent = data.active ?? "—";
+        qualified.textContent = data.qualified ?? "—";
+        counterStatus.textContent = "Contador conectado.";
+      } catch {
+        active.textContent = "—";
+        qualified.textContent = "—";
+        counterStatus.textContent =
+          "Contador ainda não conectado. Verifique o Worker.";
       }
-    );
+    }
+
+    setTimeout(() => {
+      updateCounter();
+      setInterval(updateCounter, 15000);
+    }, 5000);
   </script>
 </body>
-  </html>
-  
+</html>
