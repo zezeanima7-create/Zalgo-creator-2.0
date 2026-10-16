@@ -1,1 +1,16 @@
 
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.dev.pages.zalgo_creator_2_0.apk",
+      "sha256_cert_fingerprints": [
+        "16:B6:72:DD:88:1F:05:8E:B1:DB:1F:B1:E5:77:19:0F:69:83:EF:31:82:EE:D2:70:4A:30:AD:11:2E:C6:4B:B6"
+      ]
+    }
+  }
+]
+
