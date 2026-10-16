@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#202124">
-  <meta name="description" content="Zalgo Creator 2.0 — crie textos distorcidos e personalizados.">
+  <meta name="theme-color" content="#18191b">
+  <meta name="description" content="Zalgo Creator 2.0: transforme textos comuns em textos distorcidos, personalize a intensidade e copie ou baixe o resultado.">
+  <meta name="color-scheme" content="dark">
   <title>Zalgo Creator 2.0</title>
+
   <style>
     :root {
       color-scheme: dark;
@@ -17,29 +19,57 @@
       --text: #f1f1f1;
       --muted: #a5a7ad;
       --accent: #d7d9de;
+      --accent-text: #202124;
+      --focus: #f1f1f1;
+      --radius: 15px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
+      min-height: 100vh;
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, sans-serif;
-      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--text);
+      text-underline-offset: 4px;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 3px;
     }
 
     header {
       border-bottom: 1px solid var(--border);
-      padding: 18px 20px;
+      padding: 16px 18px;
     }
 
-    .nav, main, footer {
-      max-width: 850px;
-      margin: auto;
+    .nav,
+    main,
+    footer {
+      width: min(100% - 36px, 850px);
+      margin-inline: auto;
     }
 
     .nav {
+      min-height: 42px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -48,79 +78,170 @@
 
     .brand {
       font-size: 18px;
-      font-weight: 750;
+      font-weight: 800;
       letter-spacing: -.5px;
     }
 
-    .version {
+    .version,
+    .eyebrow {
       color: var(--muted);
       font-size: 12px;
-      margin-top: 3px;
     }
 
-    main { padding: 48px 18px 30px; }
-    .intro { margin-bottom: 28px; }
+    .version {
+      margin-top: 2px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    main {
+      padding-block: 42px 34px;
+    }
+
+    .intro {
+      margin-bottom: 25px;
+    }
 
     h1 {
-      font-size: clamp(28px, 6vw, 42px);
+      margin: 7px 0 8px;
+      font-size: clamp(30px, 7vw, 44px);
+      line-height: 1.12;
       letter-spacing: -1.5px;
-      margin: 0 0 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 12px;
     }
 
     p {
       color: var(--muted);
-      line-height: 1.6;
+      margin: 8px 0;
     }
 
     .card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: var(--radius);
       padding: 20px;
       margin-bottom: 16px;
     }
 
-    label {
-      display: block;
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 9px;
       font-size: 14px;
-      font-weight: 650;
-      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .counter {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+      white-space: nowrap;
     }
 
     textarea {
+      display: block;
       width: 100%;
-      min-height: 125px;
+      min-height: 135px;
       resize: vertical;
-      background: #191a1c;
-      border: 1px solid var(--border);
+      padding: 13px;
       border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #191a1c;
       color: var(--text);
-      padding: 14px;
       font: inherit;
-      outline: none;
+      line-height: 1.6;
     }
 
-    textarea:focus, button:focus-visible {
-      outline: 2px solid #a9abb1;
-      outline-offset: 2px;
+    textarea::placeholder {
+      color: #797c83;
+    }
+
+    .hint {
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .settings {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 19px;
+    }
+
+    .setting-title {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    select {
+      width: 100%;
+      min-height: 43px;
+      padding: 9px 10px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--panel2);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .checks {
+      display: grid;
+      gap: 10px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--accent);
     }
 
     .controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
+      gap: 9px;
+      margin-top: 17px;
     }
 
     button {
-      background: var(--accent);
-      color: #202124;
+      min-height: 43px;
       border: 1px solid var(--accent);
       border-radius: 9px;
-      padding: 11px 16px;
+      padding: 10px 15px;
+      background: var(--accent);
+      color: var(--accent-text);
       font: inherit;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 750;
       cursor: pointer;
+      transition: filter .15s ease, transform .15s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.08);
+    }
+
+    button:active {
+      transform: scale(.98);
     }
 
     button.secondary {
@@ -129,28 +250,105 @@
       color: var(--text);
     }
 
-    button:hover { filter: brightness(1.08); }
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .status {
+      margin: 11px 0 0;
       font-size: 12px;
-      color: var(--muted);
-      margin-top: 10px;
+      min-height: 20px;
     }
 
-    footer {
-      padding: 20px;
+    .result-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 9px;
+    }
+
+    .result-top label {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .footer-inner {
       border-top: 1px solid var(--border);
-      color: var(--muted);
+      padding: 23px 0 28px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-name {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .footer-small {
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
       font-size: 12px;
     }
 
-    @media (max-width: 480px) {
-      main { padding-top: 32px; }
-      .card { padding: 15px; }
-      .controls button { flex: 1; }
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 560px) {
+      main {
+        padding-top: 31px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      .settings {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .controls button {
+        flex: 1 1 135px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="nav">
@@ -158,104 +356,325 @@
         <div class="brand">Zalgo Creator</div>
         <div class="version">Versão 2.0</div>
       </div>
-      <span class="version">TEXT TOOL</span>
+      <span class="eyebrow">Text tool</span>
     </div>
   </header>
 
   <main>
     <section class="intro">
+      <div class="eyebrow">Personalize seu texto</div>
       <h1>Crie seu texto.</h1>
-      <p>Transforme palavras comuns em textos Zalgo personalizados.</p>
+      <p>
+        Transforme palavras comuns em textos Zalgo.
+        Escolha a intensidade, copie ou baixe seu resultado.
+      </p>
     </section>
 
     <section class="card">
-      <label for="source">Texto original</label>
-      <textarea id="source" placeholder="Digite seu texto aqui..."></textarea>
+      <div class="field-label">
+        <label for="source">Texto original</label>
+        <span class="counter" id="sourceCount">0 / 5000</span>
+      </div>
+
+      <textarea
+        id="source"
+        maxlength="5000"
+        placeholder="Digite seu texto aqui..."
+        spellcheck="false"
+        aria-describedby="sourceHint"
+      ></textarea>
+
+      <p class="hint" id="sourceHint">
+        O texto é processado pelo gerador no seu navegador.
+        Limite de entrada: 5.000 caracteres.
+      </p>
+
+      <div class="settings">
+        <div>
+          <label class="setting-title" for="intensity">
+            Intensidade
+          </label>
+          <select id="intensity">
+            <option value="light">Leve</option>
+            <option value="normal" selected>Normal</option>
+            <option value="heavy">Pesada</option>
+          </select>
+        </div>
+
+        <fieldset style="border:0;padding:0;margin:0">
+          <legend class="setting-title">Tipos de marcas</legend>
+          <div class="checks">
+            <label class="check">
+              <input id="useUp" type="checkbox" checked>
+              Marcas acima
+            </label>
+            <label class="check">
+              <input id="useMid" type="checkbox" checked>
+              Marcas no meio
+            </label>
+            <label class="check">
+              <input id="useDown" type="checkbox" checked>
+              Marcas abaixo
+            </label>
+          </div>
+        </fieldset>
+      </div>
 
       <div class="controls">
-        <button id="generate">Gerar Zalgo</button>
-        <button class="secondary" id="copy">Copiar resultado</button>
-        <button class="secondary" id="clear">Limpar</button>
+        <button id="generate" type="button">Gerar Zalgo</button>
+        <button id="copy" class="secondary" type="button">
+          Copiar resultado
+        </button>
+        <button id="download" class="secondary" type="button">
+          Baixar TXT
+        </button>
+        <button id="clear" class="secondary" type="button">
+          Limpar
+        </button>
       </div>
+
+      <p class="status" id="message" role="status" aria-live="polite">
+        Pronto para começar.
+      </p>
     </section>
 
     <section class="card">
-      <label for="result">Resultado</label>
-      <textarea id="result" placeholder="Seu resultado aparecerá aqui..."></textarea>
-      <p class="status" id="message" aria-live="polite">Pronto para começar.</p>
+      <div class="result-top">
+        <label for="result">Resultado</label>
+        <span class="counter" id="resultCount">0 caracteres</span>
+      </div>
+
+      <textarea
+        id="result"
+        placeholder="Seu resultado aparecerá aqui..."
+        spellcheck="false"
+        aria-describedby="resultHint"
+      ></textarea>
+
+      <p id="resultHint" class="hint">
+        Você também pode editar o resultado manualmente antes de copiar.
+      </p>
     </section>
   </main>
 
   <footer>
-    Zalgo Creator 2.0 · Ferramenta gratuita de texto
+    <div class="footer-inner">
+      <div>
+        <div class="footer-name">Zalgo Creator 2.0</div>
+        <div class="footer-small">
+          Ferramenta gratuita de personalização de texto.
+        </div>
+        <div class="footer-small">
+          Créditos: Zeze Anima
+        </div>
+      </div>
+
+      <nav class="footer-links" aria-label="Links do site">
+        <a href="/privacy.html">Política de Privacidade</a>
+        <a
+          href="https://github.com/zezeanima7-create/Zalgo-creator-2.0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Código-fonte</a>
+        <a href="#source">Voltar ao topo</a>
+      </nav>
+    </div>
   </footer>
 
   <script>
+    "use strict";
+
     const source = document.getElementById("source");
     const result = document.getElementById("result");
     const message = document.getElementById("message");
+    const sourceCount = document.getElementById("sourceCount");
+    const resultCount = document.getElementById("resultCount");
+    const intensity = document.getElementById("intensity");
+
+    const useUp = document.getElementById("useUp");
+    const useMid = document.getElementById("useMid");
+    const useDown = document.getElementById("useDown");
 
     const marks = {
-      up: ["\u030d","\u030e","\u0304","\u0305","\u033f","\u0311","\u0306"],
-      mid: ["\u0334","\u0335","\u0336","\u0337","\u0338"],
-      down: ["\u0316","\u0317","\u0318","\u0319","\u031c","\u0323","\u0324","\u0325"]
+      up: [
+        "\u030d", "\u030e", "\u0304", "\u0305",
+        "\u033f", "\u0311", "\u0306", "\u0310",
+        "\u0352", "\u0357", "\u0351"
+      ],
+      mid: [
+        "\u0334", "\u0335", "\u0336", "\u0337",
+        "\u0338", "\u034f"
+      ],
+      down: [
+        "\u0316", "\u0317", "\u0318", "\u0319",
+        "\u031c", "\u0323", "\u0324", "\u0325",
+        "\u0329", "\u0330", "\u0331"
+      ]
+    };
+
+    const levels = {
+      light: { min: 1, max: 2 },
+      normal: { min: 2, max: 4 },
+      heavy: { min: 4, max: 6 }
     };
 
     function randomMark(list) {
       return list[Math.floor(Math.random() * list.length)];
     }
 
-    document.getElementById("generate").onclick = () => {
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function updateCounts() {
+      sourceCount.textContent =
+        `${Array.from(source.value).length} / 5000`;
+
+      resultCount.textContent =
+        `${Array.from(result.value).length} caracteres`;
+    }
+
+    function setMessage(text) {
+      message.textContent = text;
+    }
+
+    function generateZalgo() {
       const text = source.value;
 
-      if (!text) {
-        message.textContent = "Digite alguma coisa primeiro.";
+      if (!text.trim()) {
+        setMessage("Digite algum texto primeiro.");
+        source.focus();
         return;
       }
 
+      const enabledGroups = [];
+
+      if (useUp.checked) enabledGroups.push(marks.up);
+      if (useMid.checked) enabledGroups.push(marks.mid);
+      if (useDown.checked) enabledGroups.push(marks.down);
+
+      if (enabledGroups.length === 0) {
+        setMessage("Selecione pelo menos um tipo de marca.");
+        return;
+      }
+
+      const level = levels[intensity.value] || levels.normal;
+
       result.value = Array.from(text).map(char => {
-        if (char.trim() === "") return char;
+        // Mantém espaços, quebras de linha e tabs sem alterações.
+        if (/\s/u.test(char)) return char;
 
+        // Evita adicionar marcas sobre outros sinais combinantes.
         let output = char;
-        const count = 1 + Math.floor(Math.random() * 3);
 
-        for (let i = 0; i < count; i++)
-          output += randomMark(marks.up);
+        for (const group of enabledGroups) {
+          const count = randomInt(level.min, level.max);
 
-        for (let i = 0; i < count; i++)
-          output += randomMark(marks.mid);
-
-        for (let i = 0; i < count; i++)
-          output += randomMark(marks.down);
+          for (let i = 0; i < count; i++) {
+            output += randomMark(group);
+          }
+        }
 
         return output;
       }).join("");
 
-      message.textContent = "Texto Zalgo gerado.";
-    };
+      updateCounts();
+      setMessage("Texto Zalgo gerado. Você já pode copiar ou baixar.");
+    }
 
-    document.getElementById("copy").onclick = async () => {
+    async function copyResult() {
       if (!result.value) {
-        message.textContent = "Gere um texto antes de copiar.";
+        setMessage("Gere um texto antes de copiar.");
         return;
       }
 
       try {
-        await navigator.clipboard.writeText(result.value);
-        message.textContent = "Texto copiado!";
-      } catch {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(result.value);
+          setMessage("Texto copiado para a área de transferência!");
+          return;
+        }
+
         result.focus();
         result.select();
-        message.textContent =
-          "Selecione o resultado e copie manualmente.";
-      }
-    };
 
-    document.getElementById("clear").onclick = () => {
+        const copied = document.execCommand("copy");
+
+        setMessage(
+          copied
+            ? "Texto copiado para a área de transferência!"
+            : "Resultado selecionado. Use a opção Copiar do seu celular."
+        );
+      } catch (error) {
+        result.focus();
+        result.select();
+        setMessage("Resultado selecionado. Copie pelo menu do celular.");
+      }
+    }
+
+    function downloadResult() {
+      if (!result.value) {
+        setMessage("Gere um texto antes de baixar.");
+        return;
+      }
+
+      const blob = new Blob(
+        [result.value],
+        { type: "text/plain;charset=utf-8" }
+      );
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = "zalgo-texto.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      URL.revokeObjectURL(url);
+      setMessage("Download solicitado: zalgo-texto.txt");
+    }
+
+    function clearFields() {
       source.value = "";
       result.value = "";
-      message.textContent = "Campos limpos.";
-    };
+      updateCounts();
+      setMessage("Campos limpos.");
+      source.focus();
+    }
+
+    document.getElementById("generate").addEventListener(
+      "click",
+      generateZalgo
+    );
+
+    document.getElementById("copy").addEventListener(
+      "click",
+      copyResult
+    );
+
+    document.getElementById("download").addEventListener(
+      "click",
+      downloadResult
+    );
+
+    document.getElementById("clear").addEventListener(
+      "click",
+      clearFields
+    );
+
+    source.addEventListener("input", updateCounts);
+    result.addEventListener("input", updateCounts);
+
+    // Atalho opcional: Ctrl+Enter para gerar no teclado.
+    source.addEventListener("keydown", event => {
+      if (event.ctrlKey && event.key === "Enter") {
+        generateZalgo();
+      }
+    });
+
+    updateCounts();
   </script>
 </body>
 </html>
