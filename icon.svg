@@ -1,8 +1,25 @@
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="100" fill="#18191b"/>
-  <path d="M110 135h292v54L190 323h212v54H110v-54l212-134H110z"
-        fill="#f1f1f1"/>
-  <path d="M122 95l-15-30m51 32l7-39m34 43l25-32"
-        stroke="#b8bac2" stroke-width="12" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#21143d"/>
+      <stop offset="100%" stop-color="#09090f"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="28" y="28" width="456" height="456" rx="92"
+        fill="none" stroke="#a78bfa" stroke-opacity=".35" stroke-width="4"/>
+
+  <g fill="url(#glow)" font-family="monospace" font-weight="900"
+     text-anchor="middle">
+    <text x="256" y="285" font-size="142">Z̷</text>
+    <text x="256" y="155" font-size="48">҉</text>
+    <text x="256" y="355" font-size="44"≯̷̴̶</text>
+  </g>
 </svg>
