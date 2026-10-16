@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09090f">
+  <meta name="description" content="Loja oficial do Zalgo Creator 2.0.">
+  <title>Loja — Zalgo Creator 2.0</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09090f;
+      --panel: #13131e;
+      --border: #29293c;
+      --text: #f5f3ff;
+      --muted: #aaa8bf;
+      --purple: #a78bfa;
+      --pink: #f472b6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at top, #251543 0%, transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 32px, 920px);
+      margin: auto;
+    }
+
+    header {
+      padding: 22px 0;
+      border-bottom: 1px solid #ffffff12;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: -.5px;
+    }
+
+    .logo span {
+      color: var(--purple);
+    }
+
+    .back {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main {
+      padding: 48px 0 32px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 7px 12px;
+      border: 1px solid #a78bfa55;
+      background: #a78bfa12;
+      color: #d8c8ff;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(32px, 7vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -1.7px;
+    }
+
+    h1 span {
+      color: var(--purple);
+    }
+
+    .subtitle {
+      max-width: 570px;
+      margin: auto;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .plan {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      background: linear-gradient(145deg, #171725, #101019);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      cursor: pointer;
+      transition: border-color .2s, transform .2s, background .2s;
+    }
+
+    .plan:hover {
+      transform: translateY(-3px);
+      border-color: #a78bfa99;
+    }
+
+    .plan.selected {
+      border: 2px solid var(--purple);
+      padding: 23px;
+      background: linear-gradient(145deg, #24183a, #12111d);
+    }
+
+    .plan input {
+      accent-color: var(--purple);
+      width: 18px;
+      height: 18px;
+      margin: 0 0 15px;
+    }
+
+    .plan-name {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .price {
+      margin: 18px 0 4px;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    .price small {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .billing {
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 20px;
+    }
+
+    .save {
+      display: inline-block;
+      width: fit-content;
+      margin-top: 12px;
+      padding: 6px 9px;
+      background: #34d39918;
+      color: #6ee7b7;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .features {
+      padding: 0;
+      margin: 22px 0 0;
+      list-style: none;
+      color: #d9d7e8;
+      font-size: 14px;
+      line-height: 2.1;
+    }
+
+    .features li::before {
+      content: "✓";
+      color: #a78bfa;
+      font-weight: 900;
+      margin-right: 9px;
+    }
+
+    .purchase {
+      margin-top: 24px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #11111b;
+    }
+
+    .purchase h2 {
+      font-size: 19px;
+      margin: 0 0 8px;
+    }
+
+    .purchase p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 0 0 16px;
+    }
+
+    .selected-summary {
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      border-radius: 12px;
+      background: #a78bfa12;
+      color: #ded2ff;
+      font-size: 14px;
+    }
+
+    .buy-button {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 13px;
+      background: linear-gradient(100deg, #a78bfa, #f472b6);
+      color: #17101f;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .buy-button:active {
+      transform: scale(.99);
+    }
+
+    .notice {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid #fbbf2455;
+      border-radius: 13px;
+      background: #fbbf240d;
+      color: #fde68a;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .info {
+      margin-top: 28px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .info h2 {
+      color: var(--text);
+      font-size: 16px;
+      margin: 0 0 8px;
+    }
+
+    .info p {
+      margin: 8px 0;
+    }
+
+    .info a {
+      color: #c4b5fd;
+      text-decoration: underline;
+    }
+
+    footer {
+      padding: 24px 0 34px;
+      text-align: center;
+      color: #77758e;
+      font-size: 12px;
+    }
+
+    @media (max-width: 620px) {
+      main {
+        padding-top: 34px;
+      }
+
+      .plans {
+        grid-template-columns: 1fr;
+      }
+
+      .plan {
+        padding: 21px;
+      }
+
+      .plan.selected {
+        padding: 20px;
+      }
+
+      .price {
+        font-size: 35px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="logo" href="index.html">
+        ZALGO <span>CREATOR 2.0</span>
+      </a>
+      <a class="back" href="index.html">← Voltar ao criador</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="tag">LOJA OFICIAL</span>
+      <h1>Desbloqueie o <span>Zalgo Pro</span></h1>
+      <p class="subtitle">
+        Escolha o plano que combina com você. Os valores abaixo são
+        os preços planejados; as assinaturas ainda não estão ativadas.
+      </p>
+    </section>
+
+    <section class="plans" aria-label="Planos disponíveis">
+      <label class="plan selected" id="monthlyCard">
+        <input type="radio" name="plan" value="monthly" checked>
+        <span class="plan-name">Mensal</span>
+        <div class="price">R$ 1,00 <small>/ mês</small></div>
+        <div class="billing">Total previsto: R$ 1,00 por mês</div>
+        <ul class="features">
+          <li>Plano de um mês</li>
+          <li>Renovação somente após integração de pagamento</li>
+          <li>Cancelamento conforme as condições apresentadas na compra</li>
+        </ul>
+      </label>
+
+      <label class="plan" id="annualCard">
+        <input type="radio" name="plan" value="annual">
+        <span class="plan-name">Anual</span>
+        <div class="price">R$ 11,40 <small>/ ano</small></div>
+        <div class="billing">Equivale a R$ 0,95 por mês</div>
+        <span class="save">5% mais barato que 12 meses mensais</span>
+        <ul class="features">
+          <li>Acesso previsto por um ano</li>
+          <li>Pagamento anual após ativação oficial</li>
+          <li>Condições de renovação informadas antes da compra</li>
+        </ul>
+      </label>
+    </section>
+
+    <section class="purchase">
+      <h2>Seu plano</h2>
+      <p>Confira sua seleção antes de continuar.</p>
+
+      <div class="selected-summary" id="summary" aria-live="polite">
+        Plano mensal — R$ 1,00 por mês.
+      </div>
+
+      <button class="buy-button" id="buyButton" type="button">
+        Ver opções de assinatura
+      </button>
+
+      <div class="notice" id="notice" role="status" aria-live="polite">
+        <strong>Pagamento ainda não disponível.</strong><br>
+        Esta loja está em modo de demonstração. Nenhuma cobrança foi feita,
+        nenhuma assinatura foi ativada e nenhum dado de pagamento foi solicitado.
+        Para vender assinaturas reais, é necessário integrar um provedor de
+        pagamentos e configurar a confirmação de compra no servidor.
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>Informações importantes</h2>
+      <p>
+        <strong>Estado da loja:</strong> demonstração. Os botões não realizam
+        pagamentos e não concedem acesso pago.
+      </p>
+      <p>
+        <strong>Renovação e cancelamento:</strong> ainda não configurados.
+        Antes de ativar assinaturas, a loja deverá explicar claramente o preço,
+        a periodicidade, a renovação automática (se houver) e como cancelar.
+      </p>
+      <p>
+        <strong>Reembolsos:</strong> a política final será publicada antes
+        da ativação dos pagamentos e deverá respeitar os direitos do consumidor
+        e as regras aplicáveis à plataforma de venda. Não use esta página como
+        confirmação de compra.
+      </p>
+      <p>
+        <strong>Privacidade:</strong> esta página não solicita número de cartão,
+        senha bancária ou dados de pagamento.
+        <a href="privacy.html">Consultar a política de privacidade</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Zalgo Creator 2.0 · Loja em demonstração
+  </footer>
+
+  <script>
+    const radios = document.querySelectorAll('input[name="plan"]');
+    const monthlyCard = document.getElementById('monthlyCard');
+    const annualCard = document.getElementById('annualCard');
+    const summary = document.getElementById('summary');
+    const notice = document.getElementById('notice');
+    const buyButton = document.getElementById('buyButton');
+
+    function updatePlan() {
+      const selected = document.querySelector(
+        'input[name="plan"]:checked'
+      ).value;
+
+      monthlyCard.classList.toggle('selected', selected === 'monthly');
+      annualCard.classList.toggle('selected', selected === 'annual');
+
+      if (selected === 'annual') {
+        summary.textContent =
+          'Plano anual — R$ 11,40 por ano (equivalente a R$ 0,95 por mês).';
+      } else {
+        summary.textContent = 'Plano mensal — R$ 1,00 por mês.';
+      }
+
+      notice.classList.remove('show');
+    }
+
+    radios.forEach((radio) => {
+      radio.addEventListener('change', updatePlan);
+    });
+
+    buyButton.addEventListener('click', () => {
+      notice.classList.add('show');
+      notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    document.getElementById('year').textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
