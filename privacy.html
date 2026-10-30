@@ -1,294 +1,76 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#18191b">
+  <meta name="theme-color" content="#100b1c">
   <meta name="description" content="Política de Privacidade do Zalgo Creator 2.0.">
-  <meta name="color-scheme" content="dark">
-  <title>Política de Privacidade — Zalgo Creator 2.0</title>
-
+  <meta name="color-scheme" content="dark light">
+  <title>Privacidade — Zalgo Creator 2.0</title>
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #18191b;
-      --panel: #222427;
-      --border: #383a3f;
-      --text: #f1f1f1;
-      --muted: #b0b2b8;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      line-height: 1.75;
-    }
-
-    a {
-      color: var(--text);
-      text-underline-offset: 4px;
-    }
-
-    a:focus-visible {
-      outline: 2px solid var(--text);
-      outline-offset: 4px;
-    }
-
-    header {
-      border-bottom: 1px solid var(--border);
-      padding: 17px 20px;
-    }
-
-    .nav,
-    main,
-    footer {
-      width: min(100% - 36px, 780px);
-      margin-inline: auto;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: -.4px;
-    }
-
-    .version,
-    .muted {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    main {
-      padding-block: 38px 48px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 23px;
-    }
-
-    h1 {
-      margin: 0 0 10px;
-      font-size: clamp(29px, 6vw, 40px);
-      line-height: 1.2;
-      letter-spacing: -1px;
-    }
-
-    h2 {
-      font-size: 18px;
-      margin: 27px 0 6px;
-    }
-
-    p,
-    li {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    ul {
-      padding-left: 21px;
-    }
-
-    li {
-      margin-bottom: 7px;
-    }
-
-    .notice {
-      border-left: 3px solid #777b84;
-      padding-left: 13px;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding-block: 20px 28px;
-      font-size: 12px;
-    }
-
-    @media (max-width: 500px) {
-      .card {
-        padding: 17px;
-      }
-    }
+    :root{color-scheme:dark;--bg:#0b0812;--panel:#15101e;--line:#39294d;--text:#f8f2ff;--muted:#b5a8c5;--accent:#c084fc}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.75}
+    header{padding:17px 20px;border-bottom:1px solid var(--line)}
+    .nav,main,footer{width:min(100% - 32px,780px);margin-inline:auto}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    a{color:var(--accent);text-underline-offset:4px}
+    main{padding-block:35px 45px}
+    article{padding:24px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}
+    h1{margin:0 0 8px;font-size:clamp(29px,6vw,40px);line-height:1.2}
+    h2{margin:27px 0 5px;font-size:18px}
+    p,li{color:var(--muted);font-size:14px}
+    .notice{border-left:3px solid var(--accent);padding-left:13px}
+    footer{border-top:1px solid var(--line);padding-block:20px 28px;color:var(--muted);font-size:12px}
+    @media(max-width:500px){article{padding:17px}}
   </style>
 </head>
-
 <body>
   <header>
     <div class="nav">
-      <div>
-        <div class="brand">Zalgo Creator 2.0</div>
-        <div class="version">Política de Privacidade</div>
-      </div>
-      <a href="/" aria-label="Voltar à página inicial">Início</a>
+      <strong>Zalgo Creator 2.0</strong>
+      <a href="/">Voltar ao criador</a>
     </div>
   </header>
-
   <main>
-    <article class="card">
+    <article>
       <h1>Política de Privacidade</h1>
+      <p>Última atualização: 30 de outubro de 2026.</p>
+      <p>Esta política descreve como a versão atual do Zalgo Creator 2.0 trata as informações usadas na ferramenta de personalização de texto.</p>
 
-      <p>
-        Última atualização: 16 de outubro de 2026.
-      </p>
+      <h2>1. Processamento dos textos</h2>
+      <p>O texto digitado é transformado diretamente no navegador, no próprio dispositivo. A funcionalidade de geração não envia o texto original nem o resultado para uma API ou banco de dados do projeto.</p>
 
-      <p>
-        Esta política explica como funciona o tratamento de dados
-        na versão atual do Zalgo Creator 2.0, uma ferramenta para
-        transformar textos comuns em textos estilizados com marcas Zalgo.
-      </p>
+      <h2>2. Histórico e preferências locais</h2>
+      <p>Para facilitar o uso, o aplicativo pode salvar no armazenamento local do navegador deste dispositivo até oito resultados recentes, além das preferências de estilo e do tema visual escolhido. Esses dados ficam no próprio navegador e não são enviados ao servidor pelo código do aplicativo.</p>
+      <p>Você pode apagar os resultados usando o botão “Limpar” na área de histórico. As preferências podem ser alteradas pelo próprio editor. Limpar os dados do site no navegador também remove esses registros locais.</p>
 
-      <h2>1. Como o gerador funciona</h2>
+      <h2>3. Copiar, compartilhar e baixar</h2>
+      <p>Copiar, compartilhar e baixar são ações iniciadas por você. O compartilhamento pode abrir os recursos nativos do sistema ou do navegador, que passam a seguir as configurações e políticas desses serviços. O download cria um arquivo de texto no dispositivo.</p>
 
-      <p>
-        A funcionalidade de geração apresentada nesta versão funciona
-        no próprio navegador. O código da ferramenta processa o texto
-        digitado e cria o resultado na página, sem enviá-lo a uma API
-        ou a um banco de dados próprio.
-      </p>
+      <h2>4. Hospedagem e dados técnicos</h2>
+      <p>O site é hospedado por um provedor de infraestrutura. A entrega e a segurança do site podem envolver o processamento de dados técnicos das solicitações, como endereço IP, informações do navegador, data, hora e registros de segurança, conforme as configurações do provedor.</p>
+      <p>Consulte também a <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Política de Privacidade da Cloudflare</a>.</p>
 
-      <p>
-        O site não possui, nesta versão do código, cadastro de usuários,
-        conta pessoal ou sistema próprio de armazenamento de textos.
-      </p>
+      <h2>5. Cookies, anúncios e análise</h2>
+      <p>O código atual do Zalgo Creator não integra intencionalmente anúncios nem ferramentas próprias de análise de audiência. O aplicativo usa armazenamento local do navegador para histórico e preferências, conforme explicado acima. Serviços da hospedagem podem usar mecanismos técnicos próprios, conforme suas configurações e políticas.</p>
 
-      <h2>2. Textos digitados e resultados</h2>
+      <h2>6. Informações que não devem ser inseridas</h2>
+      <p>Use a ferramenta para personalizar textos. Evite inserir senhas, dados bancários, documentos ou outras informações confidenciais.</p>
 
-      <p>
-        O texto original e o resultado ficam nos campos da página
-        enquanto ela está aberta. O código atual não grava esses textos
-        em um servidor, cookie ou armazenamento local do aplicativo.
-      </p>
+      <h2>7. Segurança e direitos</h2>
+      <p>Adotamos a estrutura descrita no código atual, mas nenhum serviço conectado à internet pode garantir segurança absoluta. Os direitos relativos a dados pessoais dependem da situação e da legislação aplicável, incluindo a Lei Geral de Proteção de Dados Pessoais (LGPD), quando aplicável.</p>
 
-      <p>
-        A opção de copiar só é acionada quando você toca no botão
-        correspondente. A opção de baixar cria um arquivo de texto
-        no navegador, conforme o funcionamento do seu dispositivo.
-      </p>
+      <h2>8. Mudanças nesta política</h2>
+      <p>Esta política poderá ser atualizada quando novas funcionalidades ou integrações forem adicionadas. A data de atualização será ajustada quando houver mudanças relevantes.</p>
 
-      <h2>3. Dados técnicos e hospedagem</h2>
+      <h2>9. Código-fonte</h2>
+      <p>O código do projeto pode ser consultado no <a href="https://github.com/zezeanima7-create/Zalgo-creator-2.0" target="_blank" rel="noopener noreferrer">repositório do Zalgo Creator 2.0 no GitHub</a>.</p>
 
-      <p>
-        O site é publicado por meio de um serviço de hospedagem.
-        A infraestrutura que entrega a página pode processar dados
-        técnicos das solicitações, como endereço IP, informações
-        do navegador, data, hora e registros de segurança, conforme
-        a configuração do serviço e suas próprias políticas.
-      </p>
-
-      <p>
-        Para informações sobre o tratamento de dados pela Cloudflare,
-        consulte a
-        <a
-          href="https://www.cloudflare.com/privacypolicy/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Política de Privacidade da Cloudflare</a>.
-      </p>
-
-      <h2>4. Cookies, anúncios e análise de uso</h2>
-
-      <p>
-        O código do aplicativo descrito nesta política não cria
-        intencionalmente cookies próprios, não inclui ferramentas
-        de análise de audiência e não incorpora anúncios.
-      </p>
-
-      <p>
-        Isso não representa uma garantia de que a infraestrutura de
-        hospedagem ou serviços externos nunca utilizem mecanismos
-        técnicos. Caso sejam adicionados anúncios, ferramentas de
-        análise ou outras integrações, esta política deverá ser
-        revisada para explicar o funcionamento desses serviços.
-      </p>
-
-      <h2>5. Compartilhamento de informações</h2>
-
-      <p>
-        A funcionalidade de geração não envia o texto digitado para
-        terceiros. O provedor de hospedagem pode tratar dados técnicos
-        necessários à entrega, segurança e manutenção do site.
-      </p>
-
-      <h2>6. Segurança e controle do usuário</h2>
-
-      <p>
-        Evite digitar senhas, documentos, dados bancários ou outras
-        informações confidenciais na ferramenta. O Zalgo Creator
-        foi desenvolvido para personalizar textos, não para armazenar
-        informações privadas.
-      </p>
-
-      <p>
-        Para remover o texto da página, use o botão Limpar ou recarregue
-        a página. O código atual não oferece uma conta que permita
-        recuperar textos apagados.
-      </p>
-
-      <h2>7. Seus direitos</h2>
-
-      <p>
-        Os direitos aplicáveis à proteção de dados pessoais dependem
-        da situação e da legislação pertinente, incluindo a Lei Geral
-        de Proteção de Dados Pessoais (LGPD), quando aplicável.
-      </p>
-
-      <p>
-        Para dúvidas sobre o código do projeto, você pode visitar o
-        repositório público no GitHub. Não publique informações pessoais
-        ou confidenciais em comentários ou solicitações públicas.
-      </p>
-
-      <h2>8. Alterações nesta política</h2>
-
-      <p>
-        Esta política poderá ser atualizada quando o site receber
-        funcionalidades novas ou mudanças no modo de tratamento
-        de informações. A data no início da página será alterada
-        quando houver uma nova revisão.
-      </p>
-
-      <h2>9. Contato e código-fonte</h2>
-
-      <p>
-        O código-fonte do projeto pode ser consultado aqui:
-        <a
-          href="https://github.com/zezeanima7-create/Zalgo-creator-2.0"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Zalgo Creator 2.0 no GitHub</a>.
-      </p>
-
-      <p class="notice">
-        Esta página descreve o funcionamento previsto pelo código
-        atual do aplicativo. As configurações reais de hospedagem
-        e eventuais serviços adicionados ao site também precisam
-        ser verificadas antes de considerar a política definitiva.
-      </p>
-
-      <p>
-        <a href="/">Voltar ao Zalgo Creator 2.0</a>
-      </p>
+      <p class="notice">Esta política descreve o comportamento previsto pelo código atual do aplicativo. Configurações reais da hospedagem e serviços externos também podem ter políticas próprias.</p>
+      <p><a href="/">← Voltar ao Zalgo Creator 2.0</a></p>
     </article>
   </main>
-
-  <footer>
-    Zalgo Creator 2.0 · Créditos: Zeze Anima
-  </footer>
+  <footer>Zalgo Creator 2.0 · Créditos: Zeze Anima</footer>
 </body>
 </html>
