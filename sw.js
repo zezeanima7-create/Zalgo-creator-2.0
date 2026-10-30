@@ -42,16 +42,17 @@ self.addEventListener("fetch", event => {
   }
 
   if (request.mode === "navigate") {
+    const cacheKey = url.pathname === "/" ? "/index.html" : url.pathname;
     event.respondWith(
       fetch(request)
         .then(response => {
           if (response.ok) {
             const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put("/index.html", copy));
+            caches.open(CACHE_NAME).then(cache => cache.put(cacheKey, copy));
           }
           return response;
         })
-        .catch(() => caches.match("/index.html"))
+        .catch(() => caches.match(cacheKey).then(cached => cached || caches.match("/index.html")))
     );
     return;
   }
