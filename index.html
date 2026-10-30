@@ -1,234 +1,591 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#100b1c">
-  <meta name="description" content="Zalgo Creator 2.0: crie, personalize, copie e salve textos distorcidos.">
-  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Zalgo Creator 2.0: crie, personalize, transforme e compartilhe textos Zalgo.">
+  <meta name="color-scheme" content="dark light">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <title>Zalgo Creator 2.0</title>
   <style>
-    :root{color-scheme:dark;--bg:#0d0915;--panel:#171121;--panel2:#21172f;--line:#38264d;--text:#f7f0ff;--muted:#b6a6c8;--accent:#c084fc;--accent2:#f472b6;--good:#86efac;--shadow:0 18px 55px #0006}
+    :root{
+      color-scheme:dark;
+      --bg:#0b0812;--surface:#15101e;--surface-2:#1d1529;--surface-3:#251b34;
+      --line:#39294d;--text:#f8f2ff;--muted:#b5a8c5;--soft:#8f81a2;
+      --accent:#c084fc;--accent-2:#f472b6;--accent-ink:#1b1025;
+      --good:#86efac;--warn:#fcd34d;--shadow:0 18px 48px #0005;
+      --radius:20px;
+    }
+    :root[data-theme="light"]{
+      color-scheme:light;
+      --bg:#f5f0fa;--surface:#fff;--surface-2:#f2eafa;--surface-3:#eadcf8;
+      --line:#dfd0ec;--text:#251632;--muted:#6d5b7d;--soft:#897999;
+      --accent:#8b46c5;--accent-2:#d54b9c;--accent-ink:#fff;
+      --good:#18794e;--warn:#8b5e00;--shadow:0 16px 38px #3a1e5512;
+    }
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% -10%,#51217a55,transparent 45%),radial-gradient(ellipse at 100% 20%,#a21caf22,transparent 35%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;line-height:1.55}
-    button,textarea,input,select{font:inherit}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;min-height:100vh;color:var(--text);
+      background:radial-gradient(ellipse at 12% -8%,#7c3aed2b,transparent 38%),
+                 radial-gradient(ellipse at 100% 15%,#db27771b,transparent 30%),var(--bg);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.5;transition:background .2s,color .2s;
+    }
+    button,textarea,select,input{font:inherit}
+    button,a{-webkit-tap-highlight-color:transparent}
     button{cursor:pointer}
-    .wrap{width:min(100% - 30px,1000px);margin:auto}
-    header{position:sticky;top:0;z-index:5;background:#0d0915dd;backdrop-filter:blur(16px);border-bottom:1px solid #38264d99}
-    .nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-    .brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:.2px}
-    .logo{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#170d22;font-weight:1000;font-size:21px;box-shadow:0 0 25px #c084fc55}
-    .brand small{display:block;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:1.5px}
-    .nav-actions{display:flex;gap:8px}
-    .hero{padding:48px 0 22px;text-align:center}
-    .eyebrow{color:#e9b8ff;text-transform:uppercase;letter-spacing:2.4px;font-size:11px;font-weight:850}
-    h1{font-size:clamp(34px,7vw,58px);line-height:1.06;margin:12px 0;background:linear-gradient(100deg,#fff 15%,#d8a5ff 55%,#fb9bd5);background-clip:text;color:transparent}
-    .hero p{max-width:620px;margin:0 auto;color:var(--muted)}
-    .layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:17px;align-items:start;padding:18px 0 45px}
-    .card{background:linear-gradient(160deg,#1d1529f2,#130e1cf2);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}
-    .card h2{font-size:17px;margin:0 0 5px}
-    .sub{color:var(--muted);font-size:12px;margin:0 0 16px}
-    .label-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;font-weight:750}
-    .count{color:var(--muted);font-size:11px;font-weight:600}
-    textarea{display:block;width:100%;min-height:145px;resize:vertical;border:1px solid #49345f;border-radius:13px;padding:14px;background:#0e0a16;color:var(--text);outline:none;line-height:1.6}
-    textarea:focus,select:focus,input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-    textarea::placeholder{color:#796b89}
-    .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 18px}
-    .chip{border:1px solid #52396c;background:#251a35;color:#e9d8ff;padding:7px 11px;border-radius:999px;font-size:11px;font-weight:750}
-    .chip:hover,.chip.active{background:#51306d;border-color:#c084fc}
-    .settings{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:16px 0}
-    .setting-title{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
-    select{width:100%;min-height:43px;padding:9px 11px;border-radius:10px;border:1px solid #49345f;background:#21172f;color:var(--text)}
-    .checks{display:grid;gap:8px}
-    .check{display:flex;align-items:center;gap:8px;font-size:12px;color:#e5d8f1}
-    input[type=checkbox]{accent-color:#c084fc;width:16px;height:16px}
-    .range-row{display:flex;align-items:center;gap:10px}
-    input[type=range]{width:100%;accent-color:#c084fc}
-    .range-value{min-width:24px;text-align:right;color:#e9b8ff;font-size:12px;font-weight:800}
-    .buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
-    .btn{min-height:43px;padding:10px 14px;border:1px solid #64417f;border-radius:11px;background:#281b38;color:var(--text);font-size:12px;font-weight:800;transition:transform .15s,border-color .15s}
-    .btn:hover{transform:translateY(-1px);border-color:#d8a5ff}
-    .btn.primary{background:linear-gradient(100deg,#c084fc,#f0a1dc);border:0;color:#1b1024;box-shadow:0 7px 22px #c084fc33}
-    .btn.full{flex:1 1 100%}
-    .status{min-height:20px;color:var(--good);font-size:12px;margin:12px 0 0}
-    .result-box{position:relative}
-    .result-box textarea{min-height:210px}
-    .result-tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-    .mini{padding:7px 10px;border-radius:9px;border:1px solid #49345f;background:#21172f;color:#e9d8ff;font-size:11px;font-weight:750}
-    .side{display:grid;gap:15px}
-    .tip{border:1px solid #49345f;background:#21172f;border-radius:13px;padding:12px;color:#cdbbdd;font-size:12px}
-    .tip strong{color:#f0d9ff}
-    .history{display:grid;gap:8px}
-    .history-item{display:flex;align-items:center;gap:8px;border:1px solid #3b2b4c;border-radius:11px;padding:9px;background:#130e1c}
-    .history-text{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#dfd0ec;font-size:11px}
-    .empty{color:var(--muted);font-size:12px}
-    footer{border-top:1px solid #38264d;padding:22px 0 30px;color:var(--muted);font-size:11px}
-    .foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
-    a{color:#e9b8ff}
-    @media(max-width:760px){.layout{grid-template-columns:1fr}.hero{padding-top:36px}.side{grid-template-columns:1fr 1fr}}
-    @media(max-width:520px){.wrap{width:min(100% - 22px,1000px)}.card{padding:15px;border-radius:16px}.settings{grid-template-columns:1fr}.side{grid-template-columns:1fr}.nav{min-height:60px}.hero{padding:34px 0 16px}.buttons .btn{flex:1 1 42%}.result-box textarea{min-height:170px}}
+    a{color:inherit}
+    .wrap{width:min(100% - 28px,1080px);margin-inline:auto}
+    .topbar{
+      position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line);
+      background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px);
+    }
+    .nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.3px}
+    .brand-mark{
+      width:40px;height:40px;display:grid;place-items:center;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink);
+      font-size:22px;font-weight:1000;box-shadow:0 0 26px #c084fc44;
+    }
+    .brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:1.7px;font-weight:800}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .nav-link,.icon-btn{
+      min-height:39px;padding:8px 12px;border:1px solid var(--line);border-radius:11px;
+      background:var(--surface);color:var(--text);font-size:12px;font-weight:800;text-decoration:none;
+    }
+    .icon-btn{display:inline-flex;align-items:center;gap:7px}
+    .nav-link:hover,.icon-btn:hover,.btn:hover,.small-btn:hover{border-color:var(--accent)}
+    .hero{text-align:center;padding:42px 0 22px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;
+      border:1px solid #c084fc66;background:#c084fc12;color:var(--accent);
+      font-size:10px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;
+    }
+    h1{
+      margin:13px 0 9px;font-size:clamp(34px,7vw,58px);line-height:1.04;letter-spacing:-2px;
+      background:linear-gradient(100deg,var(--text) 10%,var(--accent) 58%,var(--accent-2));
+      color:transparent;background-clip:text;
+    }
+    .hero p{max-width:640px;margin:0 auto;color:var(--muted);font-size:14px}
+    .hero-stats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:17px}
+    .stat-pill{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:10px;font-weight:750}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(290px,.92fr);gap:16px;align-items:start;padding:14px 0 42px}
+    .stack{display:grid;gap:15px;min-width:0}
+    .card{
+      min-width:0;padding:19px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(155deg,var(--surface),color-mix(in srgb,var(--surface) 88%,var(--surface-2)));
+      box-shadow:var(--shadow);
+    }
+    .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .card h2{margin:0;font-size:16px;letter-spacing:-.2px}
+    .sub{margin:4px 0 0;color:var(--muted);font-size:11px}
+    .tag{display:inline-flex;align-items:center;padding:5px 8px;border-radius:8px;background:var(--surface-2);color:var(--accent);font-size:10px;font-weight:850}
+    .label-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px;font-size:12px;font-weight:800}
+    .counter{color:var(--soft);font-size:10px;font-weight:700;white-space:nowrap}
+    textarea{
+      display:block;width:100%;min-height:142px;resize:vertical;border:1px solid var(--line);
+      border-radius:13px;background:var(--bg);color:var(--text);padding:13px;outline:none;
+      font-size:14px;line-height:1.6;overflow-wrap:anywhere;
+    }
+    textarea::placeholder{color:var(--soft)}
+    textarea:focus,select:focus,input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 16px}
+    .chip{
+      border:1px solid var(--line);border-radius:999px;background:var(--surface-2);
+      color:var(--muted);padding:7px 10px;font-size:10px;font-weight:800;
+    }
+    .chip:hover,.chip.active{background:color-mix(in srgb,var(--accent) 17%,var(--surface));border-color:var(--accent);color:var(--text)}
+    .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}
+    .field{min-width:0}
+    .field-label{display:block;margin-bottom:7px;font-size:11px;font-weight:850}
+    select{
+      width:100%;min-height:42px;padding:9px 11px;border:1px solid var(--line);border-radius:11px;
+      background:var(--surface-2);color:var(--text);font-size:12px;
+    }
+    .range-line{display:flex;align-items:center;gap:10px;min-height:42px}
+    input[type=range]{width:100%;accent-color:var(--accent)}
+    .range-number{min-width:22px;text-align:right;color:var(--accent);font-size:12px;font-weight:900}
+    .options{
+      display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0 4px;
+      padding:12px;border:1px solid var(--line);border-radius:13px;background:var(--surface-2);
+    }
+    .option{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;font-weight:700}
+    input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}
+    .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+    .btn{
+      min-height:42px;padding:10px 13px;border:1px solid var(--line);border-radius:11px;
+      background:var(--surface-2);color:var(--text);font-size:11px;font-weight:850;
+      transition:transform .15s,border-color .15s,filter .15s;
+    }
+    .btn:active,.small-btn:active{transform:scale(.98)}
+    .btn.primary{border:0;background:linear-gradient(105deg,var(--accent),var(--accent-2));color:#1b1025;box-shadow:0 7px 20px #a855f733}
+    .btn.wide{flex:1 1 100%;min-height:47px;font-size:12px}
+    .btn.grow{flex:1 1 110px}
+    .status{min-height:18px;margin:11px 0 0;color:var(--good);font-size:11px;font-weight:700}
+    .result-area{min-height:202px}
+    .result-tools{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+    .small-btn{
+      min-height:34px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;
+      background:var(--surface-2);color:var(--muted);font-size:10px;font-weight:800;
+    }
+    .tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .tool-btn{
+      min-height:42px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;
+      background:var(--surface-2);color:var(--text);font-size:11px;font-weight:800;text-align:left;
+    }
+    .tool-btn span{display:block;color:var(--soft);font-size:9px;font-weight:600;margin-top:2px}
+    .history-list{display:grid;gap:8px}
+    .history-item{
+      display:flex;align-items:center;gap:8px;min-width:0;padding:9px;
+      border:1px solid var(--line);border-radius:11px;background:var(--surface-2);
+    }
+    .history-preview{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;color:var(--muted)}
+    .empty{padding:12px;border:1px dashed var(--line);border-radius:11px;color:var(--soft);font-size:11px;text-align:center}
+    .info-note{
+      border:1px solid #c084fc44;border-radius:12px;background:#c084fc0d;padding:12px;
+      color:var(--muted);font-size:10px;line-height:1.6;
+    }
+    .info-note strong{color:var(--accent)}
+    footer{border-top:1px solid var(--line);padding:20px 0 30px;color:var(--muted);font-size:10px}
+    .footer-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    footer a{color:var(--accent);text-decoration:none}
+    .toast{
+      position:fixed;left:50%;bottom:18px;z-index:20;transform:translate(-50%,20px);
+      opacity:0;pointer-events:none;max-width:calc(100% - 30px);padding:11px 15px;
+      border:1px solid var(--line);border-radius:12px;background:var(--surface-3);
+      box-shadow:var(--shadow);color:var(--text);font-size:11px;font-weight:800;
+      transition:opacity .2s,transform .2s;
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:780px){.workspace{grid-template-columns:1fr}.hero{padding-top:33px}.right-stack{grid-template-columns:1fr 1fr}.right-stack .result-card{grid-column:1/-1}}
+    @media(max-width:540px){
+      .wrap{width:min(100% - 20px,1080px)}.nav{min-height:60px}.brand-mark{width:36px;height:36px}
+      .brand{font-size:13px}.brand small{font-size:9px}.nav-link{display:none}
+      .hero{padding:30px 0 14px}h1{letter-spacing:-1.4px}
+      .workspace{padding-top:10px}.card{padding:14px;border-radius:16px}
+      .settings-grid{grid-template-columns:1fr}.options{grid-template-columns:1fr 1fr}
+      .right-stack{grid-template-columns:1fr}.right-stack .result-card{grid-column:auto}
+      .result-area{min-height:175px}.btn.grow{flex:1 1 40%}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
   </style>
 </head>
 <body>
-<header><div class="wrap nav">
-  <div class="brand"><div class="logo">Z</div><div>Zalgo Creator<small>VERSÃO 2.0</small></div></div>
-  <div class="nav-actions"><button class="mini" id="themeBtn" type="button" aria-label="Alternar aparência">◐ Aparência</button></div>
-</div></header>
-<main class="wrap">
-  <section class="hero">
-    <div class="eyebrow">✦ laboratório de texto ✦</div>
-    <h1>Transforme suas palavras.</h1>
-    <p>Crie textos Zalgo personalizados, ajuste cada detalhe e copie ou salve o resultado em segundos.</p>
-  </section>
-  <div class="layout">
-    <section class="card">
-      <h2>✍️ Seu texto</h2><p class="sub">Digite, escolha um estilo e gere sua versão distorcida.</p>
-      <div class="label-row"><label for="source">Texto original</label><span class="count" id="sourceCount">0 / 5000</span></div>
-      <textarea id="source" maxlength="5000" placeholder="Digite ou cole seu texto aqui..." spellcheck="false"></textarea>
-      <div class="presets" aria-label="Exemplos rápidos">
-        <button class="chip" type="button" data-example="Ola mundo">Olá mundo</button>
-        <button class="chip" type="button" data-example="Bem-vindo ao Zalgo Creator">Boas-vindas</button>
-        <button class="chip" type="button" data-example="Isso ficou estranho...">Texto estranho</button>
+  <header class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">Z</div>
+        <div>Zalgo Creator<small>ESTÚDIO DE TEXTO · 2.0</small></div>
       </div>
-      <div class="settings">
-        <div><label class="setting-title" for="intensity">Intensidade</label>
-          <select id="intensity"><option value="light">Leve</option><option value="normal" selected>Normal</option><option value="heavy">Pesada</option><option value="extreme">Extrema</option></select>
-        </div>
-        <div><label class="setting-title" for="variation">Quantidade de marcas</label>
-          <div class="range-row"><input id="variation" type="range" min="1" max="8" value="3"><span class="range-value" id="variationValue">3</span></div>
-        </div>
+      <div class="nav-actions">
+        <a class="nav-link" href="/privacy.html">Privacidade</a>
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Alternar tema">◐ <span id="themeLabel">Tema claro</span></button>
       </div>
-      <fieldset style="border:0;padding:0;margin:0"><legend class="setting-title">Partes do texto que serão distorcidas</legend>
-        <div class="checks">
-          <label class="check"><input id="useUp" type="checkbox" checked> Marcas acima</label>
-          <label class="check"><input id="useMid" type="checkbox" checked> Marcas no meio</label>
-          <label class="check"><input id="useDown" type="checkbox" checked> Marcas abaixo</label>
-          <label class="check"><input id="skipSpaces" type="checkbox" checked> Preservar espaços</label>
-        </div>
-      </fieldset>
-      <div class="buttons">
-        <button class="btn primary full" id="generate" type="button">✦ Gerar texto Zalgo</button>
-        <button class="btn" id="copy" type="button">Copiar</button>
-        <button class="btn" id="download" type="button">Baixar TXT</button>
-        <button class="btn" id="clear" type="button">Limpar</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">✦ Laboratório de texto</span>
+      <h1>Dê outra dimensão às palavras.</h1>
+      <p>Crie efeitos Zalgo, experimente estilos, edite o resultado e compartilhe suas criações. Tudo é processado no próprio dispositivo.</p>
+      <div class="hero-stats">
+        <span class="stat-pill">Sem cadastro</span>
+        <span class="stat-pill">Funciona offline após carregar</span>
+        <span class="stat-pill">Textos processados localmente</span>
       </div>
-      <p class="status" id="message" role="status" aria-live="polite">Pronto para criar.</p>
     </section>
-    <aside class="side">
-      <section class="card result-box">
-        <div class="label-row"><h2>⚡ Resultado</h2><span class="count" id="resultCount">0 caracteres</span></div>
-        <p class="sub">Você também pode editar o resultado manualmente.</p>
-        <textarea id="result" placeholder="Seu texto Zalgo aparecerá aqui..." spellcheck="false"></textarea>
-        <div class="result-tools"><button class="mini" id="selectResult" type="button">Selecionar tudo</button><button class="mini" id="clearResult" type="button">Apagar resultado</button></div>
-      </section>
+
+    <div class="workspace">
       <section class="card">
-        <h2>🕘 Histórico recente</h2><p class="sub">Últimos textos gerados neste dispositivo.</p>
-        <div class="history" id="history"><div class="empty">Seu histórico aparecerá aqui.</div></div>
-        <button class="mini" id="clearHistory" type="button" style="margin-top:10px">Limpar histórico</button>
+        <div class="card-head">
+          <div><h2>✍️ Área de criação</h2><p class="sub">Escreva ou cole o texto que deseja transformar.</p></div>
+          <span class="tag">EDITOR</span>
+        </div>
+        <div class="label-row"><label for="source">Texto original</label><span class="counter" id="sourceCount">0 / 5.000</span></div>
+        <textarea id="source" maxlength="5000" placeholder="Digite ou cole seu texto aqui..." spellcheck="false"></textarea>
+        <div class="chips" aria-label="Exemplos rápidos">
+          <button class="chip" type="button" data-example="Ola mundo">Olá mundo</button>
+          <button class="chip" type="button" data-example="Bem-vindo ao Zalgo Creator">Boas-vindas</button>
+          <button class="chip" type="button" data-example="Isso ficou estranho...">Texto estranho</button>
+          <button class="chip" type="button" data-example="Nao olhe para tras">Clima sombrio</button>
+        </div>
+
+        <div class="settings-grid">
+          <div class="field">
+            <label class="field-label" for="mode">Estilo de distorção</label>
+            <select id="mode">
+              <option value="classic">Zalgo clássico</option>
+              <option value="glitch">Falha digital</option>
+              <option value="chaos">Caos total</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="intensity">Intensidade</label>
+            <select id="intensity">
+              <option value="light">Leve</option>
+              <option value="normal" selected>Normal</option>
+              <option value="heavy">Pesada</option>
+              <option value="extreme">Extrema</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="variation">Quantidade de marcas</label>
+            <div class="range-line"><input id="variation" type="range" min="1" max="8" value="3"><span class="range-number" id="variationValue">3</span></div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="sampleRate">Cobertura do texto</label>
+            <div class="range-line"><input id="sampleRate" type="range" min="20" max="100" step="10" value="100"><span class="range-number" id="sampleRateValue">100%</span></div>
+          </div>
+        </div>
+
+        <div class="options">
+          <label class="option"><input id="useUp" type="checkbox" checked> Marcas acima</label>
+          <label class="option"><input id="useMid" type="checkbox" checked> Marcas no meio</label>
+          <label class="option"><input id="useDown" type="checkbox" checked> Marcas abaixo</label>
+          <label class="option"><input id="skipSpaces" type="checkbox" checked> Preservar espaços</label>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary wide" id="generate" type="button">✦ Gerar texto Zalgo</button>
+          <button class="btn grow" id="randomize" type="button">⤨ Surpreenda-me</button>
+          <button class="btn grow" id="resetSettings" type="button">↺ Restaurar ajustes</button>
+          <button class="btn grow" id="clearAll" type="button">Limpar campos</button>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite">Pronto para criar.</p>
       </section>
-      <section class="card">
-        <h2>💡 Dicas rápidas</h2>
-        <div class="tip"><strong>Leve:</strong> bom para manter o texto fácil de ler.</div>
-        <div class="tip" style="margin-top:8px"><strong>Pesada ou extrema:</strong> use em pequenas frases para criar um efeito mais caótico.</div>
-        <div class="tip" style="margin-top:8px"><strong>Privacidade:</strong> o texto é processado localmente no navegador; não é enviado para um servidor.</div>
-      </section>
-    </aside>
-  </div>
-</main>
-<footer><div class="wrap foot"><div><strong>Zalgo Creator 2.0</strong><br>Ferramenta gratuita de personalização de texto.<br>Créditos: Zezeanima7</div><div><a href="/privacy.html">Privacidade</a> · <a href="https://github.com/zezeanima7-create/Zalgo-creator-2.0" target="_blank" rel="noopener noreferrer">Código-fonte</a> · <a href="#source">Voltar ao topo</a></div></div></footer>
-<script>
-"use strict";
-const $=id=>document.getElementById(id);
-const source=$("source"),result=$("result"),message=$("message");
-const marks={
- up:["\u030d","\u030e","\u0304","\u0305","\u033f","\u0311","\u0306","\u0310","\u0352","\u0357","\u0351","\u0342"],
- mid:["\u0334","\u0335","\u0336","\u0337","\u0338","\u034f"],
- down:["\u0316","\u0317","\u0318","\u0319","\u031c","\u0323","\u0324","\u0325","\u0329","\u0330","\u0331","\u032d"]
-};
-const levels={light:[1,2],normal:[2,4],heavy:[4,6],extreme:[5,8]};
-const HISTORY_KEY="zalgoCreatorHistoryV2";
-function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min}
-function updateCounts(){
- $("sourceCount").textContent=Array.from(source.value).length+" / 5000";
- $("resultCount").textContent=Array.from(result.value).length+" caracteres";
-}
-function notify(text){message.textContent=text}
-function generate(){
- if(!source.value.trim()){notify("Digite algum texto primeiro.");source.focus();return}
- const groups=[];
- if($("useUp").checked)groups.push(marks.up);
- if($("useMid").checked)groups.push(marks.mid);
- if($("useDown").checked)groups.push(marks.down);
- if(!groups.length){notify("Selecione pelo menos um tipo de marca.");return}
- const [min,max]=levels[$("intensity").value]||levels.normal;
- const multiplier=Number($("variation").value)/3;
- result.value=Array.from(source.value).map(char=>{
-   if($("skipSpaces").checked && /\s/u.test(char))return char;
-   let output=char;
-   for(const group of groups){
-     const count=Math.max(1,Math.round(rand(min,max)*multiplier));
-     for(let i=0;i<count;i++)output+=group[rand(0,group.length-1)];
-   }
-   return output;
- }).join("");
- updateCounts();saveHistory(result.value);notify("Texto gerado! Pronto para copiar ou baixar.");
-}
-function getHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")}catch{return []}}
-function saveHistory(value){
- const items=[value,...getHistory().filter(x=>x!==value)].slice(0,5);
- try{localStorage.setItem(HISTORY_KEY,JSON.stringify(items))}catch{}
- renderHistory();
-}
-function renderHistory(){
- const box=$("history"),items=getHistory();box.replaceChildren();
- if(!items.length){const empty=document.createElement("div");empty.className="empty";empty.textContent="Seu histórico aparecerá aqui.";box.append(empty);return}
- items.forEach((value,index)=>{
-   const row=document.createElement("div");row.className="history-item";
-   const text=document.createElement("div");text.className="history-text";text.textContent=value;
-   const btn=document.createElement("button");btn.className="mini";btn.type="button";btn.textContent="Usar";
-   btn.addEventListener("click",()=>{result.value=value;updateCounts();notify("Texto recuperado do histórico.")});
-   row.append(text,btn);box.append(row);
- });
-}
-async function copy(){
- if(!result.value){notify("Gere um texto antes de copiar.");return}
- try{
-  if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(result.value);notify("Copiado para a área de transferência!");return}
-  result.focus();result.select();const ok=document.execCommand("copy");notify(ok?"Texto copiado!":"Texto selecionado. Use Copiar no menu do celular.");
- }catch{result.focus();result.select();notify("Selecione o texto e use Copiar no menu do celular.")}
-}
-function download(){
- if(!result.value){notify("Gere um texto antes de baixar.");return}
- const blob=new Blob([result.value],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download="zalgo-texto.txt";document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);notify("Download iniciado.");
-}
-function clearAll(){source.value="";result.value="";updateCounts();notify("Campos limpos.");source.focus()}
-$("generate").addEventListener("click",generate);
-$("copy").addEventListener("click",copy);
-$("download").addEventListener("click",download);
-$("clear").addEventListener("click",clearAll);
-$("clearResult").addEventListener("click",()=>{result.value="";updateCounts();notify("Resultado apagado.")});
-$("selectResult").addEventListener("click",()=>{result.focus();result.select();notify("Resultado selecionado.")});
-$("clearHistory").addEventListener("click",()=>{localStorage.removeItem(HISTORY_KEY);renderHistory();notify("Histórico apagado.")});
-source.addEventListener("input",updateCounts);result.addEventListener("input",updateCounts);
-$("variation").addEventListener("input",e=>$("variationValue").textContent=e.target.value);
-document.querySelectorAll("[data-example]").forEach(btn=>btn.addEventListener("click",()=>{source.value=btn.dataset.example;updateCounts();source.focus();notify("Exemplo carregado.")}));
-source.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter")generate()});
-$("themeBtn").addEventListener("click",()=>{
- const light=document.body.dataset.theme!=="light";
- document.body.dataset.theme=light?"light":"dark";
- document.documentElement.style.setProperty("--bg",light?"#f4effa":"#0d0915");
- document.documentElement.style.setProperty("--panel",light?"#fff":"#171121");
- document.documentElement.style.setProperty("--text",light?"#24152f":"#f7f0ff");
- document.documentElement.style.setProperty("--muted",light?"#665674":"#b6a6c8");
- document.documentElement.style.setProperty("--line",light?"#d9c9e8":"#38264d");
- document.body.style.color=light?"#24152f":"#f7f0ff";
- notify(light?"Aparência clara ativada.":"Aparência escura ativada.");
-});
-if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(err=>console.warn("Service worker:",err)))}
-updateCounts();renderHistory();
-</script>
+
+      <aside class="stack right-stack">
+        <section class="card result-card">
+          <div class="card-head">
+            <div><h2>⚡ Resultado</h2><p class="sub">Edite o texto gerado diretamente aqui.</p></div>
+            <span class="tag">SAÍDA</span>
+          </div>
+          <div class="label-row"><label for="result">Texto transformado</label><span class="counter" id="resultCount">0 caracteres</span></div>
+          <textarea class="result-area" id="result" placeholder="Seu texto Zalgo aparecerá aqui..." spellcheck="false"></textarea>
+          <div class="result-tools">
+            <button class="small-btn" id="copy" type="button">Copiar</button>
+            <button class="small-btn" id="share" type="button">Compartilhar</button>
+            <button class="small-btn" id="download" type="button">Baixar TXT</button>
+            <button class="small-btn" id="useResult" type="button">Usar como original</button>
+            <button class="small-btn" id="selectResult" type="button">Selecionar tudo</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><div><h2>🛠️ Ferramentas rápidas</h2><p class="sub">Aplicadas ao texto original.</p></div></div>
+          <div class="tools-grid">
+            <button class="tool-btn" type="button" data-tool="upper">Aᵃ Maiúsculas<span>Transforma em CAIXA ALTA</span></button>
+            <button class="tool-btn" type="button" data-tool="lower">aᵃ Minúsculas<span>Transforma em caixa baixa</span></button>
+            <button class="tool-btn" type="button" data-tool="reverse">⇄ Inverter texto<span>Inverte a ordem dos caracteres</span></button>
+            <button class="tool-btn" type="button" data-tool="clean">✧ Limpar Zalgo<span>Remove marcas combinantes</span></button>
+            <button class="tool-btn" type="button" data-tool="duplicate">⧉ Duplicar texto<span>Repete o conteúdo em outra linha</span></button>
+            <button class="tool-btn" type="button" data-tool="trim">↔ Remover espaços<span>Remove espaços extras nas pontas</span></button>
+          </div>
+        </section>
+
+        <section class="card" id="historySection">
+          <div class="card-head">
+            <div><h2>🕘 Histórico recente</h2><p class="sub">Até 8 resultados salvos neste dispositivo.</p></div>
+            <button class="small-btn" id="clearHistory" type="button">Limpar</button>
+          </div>
+          <div class="history-list" id="history"><div class="empty">Suas criações aparecerão aqui.</div></div>
+        </section>
+
+        <div class="info-note"><strong>Privacidade:</strong> os textos não são enviados a um servidor. O histórico e suas preferências ficam armazenados localmente no navegador deste dispositivo. Use a opção “Limpar histórico” para apagá-los.</div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div><strong>Zalgo Creator 2.0</strong><br>Créditos: Zeze Anima · Ferramenta gratuita</div>
+      <div><a href="/privacy.html">Política de privacidade</a> · <a href="https://github.com/zezeanima7-create/Zalgo-creator-2.0" target="_blank" rel="noopener noreferrer">Código-fonte</a> · <a href="#source">Voltar ao topo ↑</a></div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const source = $("source");
+  const result = $("result");
+  const HISTORY_KEY = "zalgoCreatorHistoryV3";
+  const PREFS_KEY = "zalgoCreatorPrefsV3";
+  const DEFAULTS = {mode:"classic",intensity:"normal",variation:"3",sampleRate:"100",useUp:true,useMid:true,useDown:true,skipSpaces:true};
+  const marks = {
+    up:["\u030d","\u030e","\u0304","\u0305","\u033f","\u0311","\u0306","\u0310","\u0352","\u0357","\u0351","\u0342","\u034a","\u034b"],
+    mid:["\u0334","\u0335","\u0336","\u0337","\u0338","\u034f"],
+    down:["\u0316","\u0317","\u0318","\u0319","\u031c","\u0323","\u0324","\u0325","\u0329","\u0330","\u0331","\u032d","\u031d","\u031e"]
+  };
+  const levels = {light:[1,1],normal:[1,2],heavy:[2,4],extreme:[3,6]};
+  let toastTimer = null;
+
+  function notify(text){
+    const toast = $("toast");
+    toast.textContent = text;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
+    $("status").textContent = text;
+  }
+  function countChars(text){return Array.from(text).length}
+  function updateCounts(){
+    $("sourceCount").textContent = countChars(source.value).toLocaleString("pt-BR") + " / 5.000";
+    $("resultCount").textContent = countChars(result.value).toLocaleString("pt-BR") + " caracteres";
+  }
+  function randomInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+  function readPrefs(){
+    try{
+      const saved = JSON.parse(localStorage.getItem(PREFS_KEY) || "{}");
+      return Object.assign({},DEFAULTS,saved);
+    }catch(_){return Object.assign({},DEFAULTS)}
+  }
+  function savePrefs(){
+    const prefs = {
+      mode:$("mode").value,intensity:$("intensity").value,variation:$("variation").value,
+      sampleRate:$("sampleRate").value,useUp:$("useUp").checked,useMid:$("useMid").checked,
+      useDown:$("useDown").checked,skipSpaces:$("skipSpaces").checked
+    };
+    try{localStorage.setItem(PREFS_KEY,JSON.stringify(prefs))}catch(_){}
+  }
+  function applyPrefs(prefs){
+    $("mode").value = prefs.mode;
+    $("intensity").value = prefs.intensity;
+    $("variation").value = prefs.variation;
+    $("sampleRate").value = prefs.sampleRate;
+    $("useUp").checked = !!prefs.useUp;
+    $("useMid").checked = !!prefs.useMid;
+    $("useDown").checked = !!prefs.useDown;
+    $("skipSpaces").checked = !!prefs.skipSpaces;
+    $("variationValue").textContent = prefs.variation;
+    $("sampleRateValue").textContent = prefs.sampleRate + "%";
+  }
+  function getHistory(){
+    try{
+      const value = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+      return Array.isArray(value) ? value.filter(item => item && typeof item.text === "string") : [];
+    }catch(_){return []}
+  }
+  function saveHistory(text){
+    const items = [{text:text,createdAt:Date.now()},...getHistory().filter(item => item.text !== text)].slice(0,8);
+    try{localStorage.setItem(HISTORY_KEY,JSON.stringify(items))}catch(_){}
+    renderHistory();
+  }
+  function renderHistory(){
+    const box = $("history");
+    const items = getHistory();
+    box.replaceChildren();
+    if(!items.length){
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = "Suas criações aparecerão aqui.";
+      box.append(empty);
+      return;
+    }
+    items.forEach(item => {
+      const row = document.createElement("div");
+      row.className = "history-item";
+      const preview = document.createElement("div");
+      preview.className = "history-preview";
+      preview.textContent = item.text;
+      const use = document.createElement("button");
+      use.className = "small-btn";
+      use.type = "button";
+      use.textContent = "Abrir";
+      use.addEventListener("click",() => {
+        result.value = item.text;
+        updateCounts();
+        notify("Criação recuperada do histórico.");
+      });
+      row.append(preview,use);
+      box.append(row);
+    });
+  }
+  function generate(){
+    if(!source.value.trim()){
+      notify("Digite algum texto antes de gerar.");
+      source.focus();
+      return;
+    }
+    const groups = [];
+    if($("useUp").checked)groups.push(marks.up);
+    if($("useMid").checked)groups.push(marks.mid);
+    if($("useDown").checked)groups.push(marks.down);
+    if(!groups.length){
+      notify("Ative pelo menos um tipo de marca.");
+      return;
+    }
+    const mode = $("mode").value;
+    const level = levels[$("intensity").value] || levels.normal;
+    const multiplier = Number($("variation").value)/3;
+    const coverage = Number($("sampleRate").value)/100;
+    const chars = Array.from(source.value);
+    result.value = chars.map(char => {
+      if($("skipSpaces").checked && /\s/u.test(char))return char;
+      if(Math.random() > coverage)return char;
+      if(mode === "glitch" && Math.random() < .42)return char;
+      let output = char;
+      groups.forEach(group => {
+        let amount = Math.max(1,Math.round(randomInt(level[0],level[1])*multiplier));
+        if(mode === "chaos")amount = Math.min(12,Math.ceil(amount*1.65));
+        if(mode === "glitch")amount = Math.max(1,Math.ceil(amount*.65));
+        for(let i=0;i<amount;i++)output += group[randomInt(0,group.length-1)];
+      });
+      return output;
+    }).join("");
+    updateCounts();
+    saveHistory(result.value);
+    savePrefs();
+    notify("Texto criado! Copie, compartilhe ou continue editando.");
+  }
+  async function copyResult(){
+    if(!result.value){notify("Ainda não existe um resultado para copiar.");return}
+    try{
+      if(navigator.clipboard && window.isSecureContext){
+        await navigator.clipboard.writeText(result.value);
+        notify("Texto copiado!");
+        return;
+      }
+      result.focus();
+      result.select();
+      const copied = document.execCommand("copy");
+      notify(copied ? "Texto copiado!" : "Texto selecionado. Use Copiar no menu do celular.");
+    }catch(_){
+      result.focus();
+      result.select();
+      notify("Texto selecionado. Use Copiar no menu do celular.");
+    }
+  }
+  function downloadResult(){
+    if(!result.value){notify("Gere um resultado antes de baixar.");return}
+    const blob = new Blob([result.value],{type:"text/plain;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "zalgo-creator-texto.txt";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url),1000);
+    notify("Arquivo TXT preparado para baixar.");
+  }
+  async function shareResult(){
+    if(!result.value){notify("Gere um resultado antes de compartilhar.");return}
+    if(navigator.share){
+      try{await navigator.share({title:"Texto criado no Zalgo Creator",text:result.value});notify("Compartilhamento aberto.");}
+      catch(error){if(error && error.name !== "AbortError")notify("Não foi possível abrir o compartilhamento.");}
+    }else{
+      await copyResult();
+      notify("Seu navegador não oferece compartilhamento direto. O texto foi copiado.");
+    }
+  }
+  function clearAll(){
+    source.value = "";
+    result.value = "";
+    updateCounts();
+    notify("Campos limpos.");
+    source.focus();
+  }
+  function applyTool(name){
+    if(!source.value){notify("Digite um texto original primeiro.");source.focus();return}
+    const combiningMarks = /[\u0300-\u036f\u1ab0-\u1aff\u1dc0-\u1dff\u20d0-\u20ff\ufe20-\ufe2f]/g;
+    switch(name){
+      case "upper":source.value = source.value.toLocaleUpperCase("pt-BR");break;
+      case "lower":source.value = source.value.toLocaleLowerCase("pt-BR");break;
+      case "reverse":source.value = Array.from(source.value).reverse().join("");break;
+      case "clean":source.value = source.value.replace(combiningMarks,"");break;
+      case "duplicate":source.value = source.value + "\n" + source.value;break;
+      case "trim":source.value = source.value.trim().replace(/[ \t]{2,}/g," ");break;
+    }
+    updateCounts();
+    notify("Ferramenta aplicada ao texto original.");
+    source.focus();
+  }
+  function setTheme(theme){
+    document.documentElement.dataset.theme = theme;
+    const isLight = theme === "light";
+    $("themeLabel").textContent = isLight ? "Tema escuro" : "Tema claro";
+    document.querySelector('meta[name="theme-color"]').setAttribute("content",isLight ? "#f5f0fa" : "#100b1c");
+    try{localStorage.setItem("zalgoCreatorTheme",theme)}catch(_){}
+  }
+  function randomize(){
+    const modes = ["classic","glitch","chaos"];
+    const intensities = ["light","normal","heavy","extreme"];
+    $("mode").value = modes[randomInt(0,modes.length-1)];
+    $("intensity").value = intensities[randomInt(0,intensities.length-1)];
+    $("variation").value = String(randomInt(2,8));
+    $("variationValue").textContent = $("variation").value;
+    $("sampleRate").value = String(randomInt(50,100));
+    $("sampleRateValue").textContent = $("sampleRate").value + "%";
+    savePrefs();
+    generate();
+  }
+
+  $("generate").addEventListener("click",generate);
+  $("copy").addEventListener("click",copyResult);
+  $("download").addEventListener("click",downloadResult);
+  $("share").addEventListener("click",shareResult);
+  $("clearAll").addEventListener("click",clearAll);
+  $("randomize").addEventListener("click",randomize);
+  $("resetSettings").addEventListener("click",() => {applyPrefs(DEFAULTS);savePrefs();notify("Ajustes restaurados.");});
+  $("useResult").addEventListener("click",() => {
+    if(!result.value){notify("Ainda não existe um resultado.");return}
+    source.value = result.value;
+    result.value = "";
+    updateCounts();
+    notify("Resultado movido para o texto original.");
+    source.focus();
+  });
+  $("selectResult").addEventListener("click",() => {
+    if(!result.value){notify("Não há texto para selecionar.");return}
+    result.focus();result.select();notify("Resultado selecionado.");
+  });
+  $("clearHistory").addEventListener("click",() => {
+    try{localStorage.removeItem(HISTORY_KEY)}catch(_){}
+    renderHistory();
+    notify("Histórico apagado deste dispositivo.");
+  });
+  document.querySelectorAll("[data-example]").forEach(button => {
+    button.addEventListener("click",() => {
+      source.value = button.dataset.example;
+      updateCounts();
+      source.focus();
+      notify("Exemplo carregado.");
+    });
+  });
+  document.querySelectorAll("[data-tool]").forEach(button => {
+    button.addEventListener("click",() => applyTool(button.dataset.tool));
+  });
+  ["mode","intensity","variation","sampleRate","useUp","useMid","useDown","skipSpaces"].forEach(id => {
+    $(id).addEventListener("change",savePrefs);
+  });
+  $("variation").addEventListener("input",event => {$("variationValue").textContent = event.target.value;});
+  $("sampleRate").addEventListener("input",event => {$("sampleRateValue").textContent = event.target.value + "%";});
+  $("themeBtn").addEventListener("click",() => {
+    const current = document.documentElement.dataset.theme;
+    setTheme(current === "light" ? "dark" : "light");
+  });
+  source.addEventListener("input",updateCounts);
+  result.addEventListener("input",updateCounts);
+  source.addEventListener("keydown",event => {
+    if((event.ctrlKey || event.metaKey) && event.key === "Enter")generate();
+  });
+
+  applyPrefs(readPrefs());
+  let savedTheme = "dark";
+  try{savedTheme = localStorage.getItem("zalgoCreatorTheme") || "dark"}catch(_){}
+  setTheme(savedTheme);
+  updateCounts();
+  renderHistory();
+  if("serviceWorker" in navigator){
+    window.addEventListener("load",() => {
+      navigator.serviceWorker.register("/sw.js").catch(error => console.warn("Service Worker:",error));
+    });
+  }
+  </script>
 </body>
 </html>
