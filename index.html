@@ -169,6 +169,15 @@
     }
     .ad-slot .ad-label{font-size:9px;font-weight:900;letter-spacing:1.6px;color:var(--soft)}
     .ad-slot small{font-size:10px;color:var(--soft)}
+
+    .ad-unit{display:flex;justify-content:center;align-items:center;width:100%;overflow:hidden;margin:0 auto 18px;padding:8px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent)}
+    .ad-unit .ad-label{display:block;text-align:center;margin-bottom:5px;color:var(--soft);font-size:9px;font-weight:900;letter-spacing:1.5px}
+    .ad-320{max-width:336px;min-height:66px}
+    .ad-468{max-width:484px;min-height:76px}
+    .ad-300{max-width:316px;min-height:274px}
+    .ad-native{display:block;max-width:100%;min-height:120px;padding:10px}
+    .ad-native #container-acc17718b6d342718875c51c7dcf9022{width:100%;min-height:100px}
+
     .api-pill{display:inline-flex;align-items:center;gap:6px}
     .api-dot{width:7px;height:7px;border-radius:50%;background:var(--warn);display:inline-block}
     .api-pill.online .api-dot{background:var(--good);box-shadow:0 0 9px color-mix(in srgb,var(--good) 65%,transparent)}
@@ -220,13 +229,26 @@
       </div>
     </section>
 
-    <section class="ad-slot" aria-label="Espaço publicitário">
-      <span class="ad-label">PUBLICIDADE</span>
-      <span>Espaço de anúncio responsivo</span>
-      <small>O anúncio será exibido aqui após a configuração segura da conta Adsterra.</small>
+
+    <section class="ad-unit ad-468" aria-label="Publicidade">
+      <div><span class="ad-label">PUBLICIDADE</span>
+        <script>
+          atOptions = {'key':'e78a9a50e1fd97b9ee18ec11970aa96c','format':'iframe','height':60,'width':468,'params':{}};
+        </script>
+        <script src="https://bauval.org/22/e78a9a50e1fd97b9ee18ec11970aa96c"></script>
+      </div>
     </section>
 
     <div class="workspace">
+
+    <section class="ad-unit ad-320" aria-label="Publicidade">
+      <div><span class="ad-label">PUBLICIDADE</span>
+        <script>
+          atOptions = {'key':'27c38212ec50f3e667e966ab94b355b9','format':'iframe','height':50,'width':320,'params':{}};
+        </script>
+        <script src="https://bauval.org/22/27c38212ec50f3e667e966ab94b355b9"></script>
+      </div>
+    </section>
       <section class="card">
         <div class="card-head">
           <div><h2>✍️ Área de criação</h2><p class="sub">Escreva ou cole o texto que deseja transformar.</p></div>
@@ -302,6 +324,15 @@
           </div>
         </section>
 
+
+        <section class="ad-unit ad-300" aria-label="Publicidade">
+          <div><span class="ad-label">PUBLICIDADE</span>
+            <script>
+              atOptions = {'key':'e96d54f0c64bcdf851ad7cdc3927cf0f','format':'iframe','height':250,'width':300,'params':{}};
+            </script>
+            <script src="https://bauval.org/22/e96d54f0c64bcdf851ad7cdc3927cf0f"></script>
+          </div>
+        </section>
         <section class="card">
           <div class="card-head"><div><h2>🛠️ Ferramentas rápidas</h2><p class="sub">Aplicadas ao texto original.</p></div></div>
           <div class="tools-grid">
@@ -322,6 +353,13 @@
           <div class="history-list" id="history"><div class="empty">Suas criações aparecerão aqui.</div></div>
         </section>
 
+
+        <section class="ad-unit ad-native" aria-label="Publicidade nativa">
+          <div style="width:100%"><span class="ad-label">PUBLICIDADE</span>
+            <script async="async" data-cfasync="false" src="https://bauval.org/21/acc17718b6d342718875c51c7dcf9022"></script>
+            <div id="container-acc17718b6d342718875c51c7dcf9022"></div>
+          </div>
+        </section>
         <div class="info-note"><strong>Privacidade:</strong> os textos não são enviados a um servidor. O histórico e suas preferências ficam armazenados localmente no navegador deste dispositivo. Use a opção “Limpar histórico” para apagá-los.</div>
       </aside>
     </div>
@@ -334,6 +372,10 @@
     </div>
   </footer>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+  <!-- Social Bar da rede de anúncios -->
+  <script data-cfasync="false" src="https://bauval.org/14/34bbba2dcc1326e85b407fe1e4411dee"></script>
 
   <script>
   "use strict";
