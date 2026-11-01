@@ -375,6 +375,7 @@
     }
   }
   async function updateVisitorCount(){
+    if(document.visibilityState === "hidden")return;
     const pill = $("visitorStatus");
     const label = $("visitorCount");
     try{
@@ -390,7 +391,7 @@
       const data = await response.json();
       if(!data || !Number.isFinite(data.online))throw new Error("Invalid visitor count");
       pill.classList.remove("unavailable");
-      label.textContent = data.online.toLocaleString("pt-BR") + (data.online === 1 ? " online" : " online");
+      label.textContent = data.online.toLocaleString("pt-BR") + (data.online === 1 ? " pessoa online" : " pessoas online");
     }catch(_){
       pill.classList.add("unavailable");
       label.textContent = "Online indisponível";
@@ -665,6 +666,9 @@
   checkApi();
   updateVisitorCount();
   window.setInterval(updateVisitorCount,30000);
+  document.addEventListener("visibilitychange",() => {
+    if(document.visibilityState === "visible")updateVisitorCount();
+  });
   if("serviceWorker" in navigator){
     window.addEventListener("load",() => {
       navigator.serviceWorker.register("/sw.js").catch(error => console.warn("Service Worker:",error));
