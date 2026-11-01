@@ -160,6 +160,20 @@
       transition:opacity .2s,transform .2s;
     }
     .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    .ad-slot{
+      width:min(100%,970px);min-height:90px;margin:0 auto 18px;padding:13px 16px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+      border:1px dashed var(--line);border-radius:14px;background:color-mix(in srgb,var(--surface) 75%,transparent);
+      color:var(--muted);text-align:center;font-size:12px;
+    }
+    .ad-slot .ad-label{font-size:9px;font-weight:900;letter-spacing:1.6px;color:var(--soft)}
+    .ad-slot small{font-size:10px;color:var(--soft)}
+    .api-pill{display:inline-flex;align-items:center;gap:6px}
+    .api-dot{width:7px;height:7px;border-radius:50%;background:var(--warn);display:inline-block}
+    .api-pill.online .api-dot{background:var(--good);box-shadow:0 0 9px color-mix(in srgb,var(--good) 65%,transparent)}
+    .api-pill.offline .api-dot{background:#f87171}
+
     @media(max-width:780px){.workspace{grid-template-columns:1fr}.hero{padding-top:33px}.right-stack{grid-template-columns:1fr 1fr}.right-stack .result-card{grid-column:1/-1}}
     @media(max-width:540px){
       .wrap{width:min(100% - 20px,1080px)}.nav{min-height:60px}.brand-mark{width:36px;height:36px}
@@ -196,7 +210,14 @@
         <span class="stat-pill">Sem cadastro</span>
         <span class="stat-pill">Funciona offline após carregar</span>
         <span class="stat-pill">Textos processados localmente</span>
+        <span class="stat-pill api-pill" id="apiStatus"><i class="api-dot" aria-hidden="true"></i><span id="apiStatusText">Conectando à API...</span></span>
       </div>
+    </section>
+
+    <section class="ad-slot" aria-label="Espaço publicitário">
+      <span class="ad-label">PUBLICIDADE</span>
+      <span>Espaço de anúncio responsivo</span>
+      <small>O anúncio será exibido aqui após a configuração segura da conta Adsterra.</small>
     </section>
 
     <div class="workspace">
@@ -315,6 +336,7 @@
   const result = $("result");
   const HISTORY_KEY = "zalgoCreatorHistoryV3";
   const PREFS_KEY = "zalgoCreatorPrefsV3";
+  const API_BASE = "https://zalgo-creator-api.zezeanima7.workers.dev";
   const DEFAULTS = {mode:"classic",intensity:"normal",variation:"3",sampleRate:"100",useUp:true,useMid:true,useDown:true,skipSpaces:true};
   const marks = {
     up:["\u030d","\u030e","\u0304","\u0305","\u033f","\u0311","\u0306","\u0310","\u0352","\u0357","\u0351","\u0342","\u034a","\u034b"],
@@ -331,6 +353,23 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
     $("status").textContent = text;
+  }
+  async function checkApi(){
+    const pill = $("apiStatus");
+    const label = $("apiStatusText");
+    try{
+      const response = await fetch(API_BASE + "/api/health", {method:"GET", mode:"cors", cache:"no-store"});
+      if(!response.ok)throw new Error("API indisponível");
+      const data = await response.json();
+      if(!data || data.status !== "online")throw new Error("Resposta inválida");
+      pill.classList.remove("offline");
+      pill.classList.add("online");
+      label.textContent = "API conectada";
+    }catch(_){
+      pill.classList.remove("online");
+      pill.classList.add("offline");
+      label.textContent = "API indisponível";
+    }
   }
   function countChars(text){return Array.from(text).length}
   function updateCounts(){
@@ -581,6 +620,7 @@
   setTheme(savedTheme);
   updateCounts();
   renderHistory();
+  checkApi();
   if("serviceWorker" in navigator){
     window.addEventListener("load",() => {
       navigator.serviceWorker.register("/sw.js").catch(error => console.warn("Service Worker:",error));
