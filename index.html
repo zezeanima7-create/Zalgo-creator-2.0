@@ -173,6 +173,11 @@
     .api-dot{width:7px;height:7px;border-radius:50%;background:var(--warn);display:inline-block}
     .api-pill.online .api-dot{background:var(--good);box-shadow:0 0 9px color-mix(in srgb,var(--good) 65%,transparent)}
     .api-pill.offline .api-dot{background:#f87171}
+    .visitor-pill{display:inline-flex;align-items:center;gap:7px}
+    .visitor-dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;box-shadow:0 0 10px color-mix(in srgb,var(--good) 65%,transparent);animation:visitorPulse 1.8s ease-in-out infinite}
+    .visitor-pill.unavailable .visitor-dot{background:var(--soft);box-shadow:none;animation:none}
+    @keyframes visitorPulse{50%{opacity:.55;transform:scale(.82)}}
+    @media(prefers-reduced-motion:reduce){.visitor-dot{animation:none}}
 
     @media(max-width:780px){.workspace{grid-template-columns:1fr}.hero{padding-top:33px}.right-stack{grid-template-columns:1fr 1fr}.right-stack .result-card{grid-column:1/-1}}
     @media(max-width:540px){
@@ -211,6 +216,7 @@
         <span class="stat-pill">Funciona offline após carregar</span>
         <span class="stat-pill">Textos processados localmente</span>
         <span class="stat-pill api-pill" id="apiStatus"><i class="api-dot" aria-hidden="true"></i><span id="apiStatusText">Conectando à API...</span></span>
+        <span class="stat-pill visitor-pill" id="visitorStatus" aria-live="polite"><i class="visitor-dot" aria-hidden="true"></i><span id="visitorCount">Contando visitantes...</span></span>
       </div>
     </section>
 
@@ -353,6 +359,42 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
     $("status").textContent = text;
+  }
+  let temporaryVisitorToken = "";
+  function getVisitorToken(){
+    try{
+      let token = sessionStorage.getItem("zalgoVisitorSession");
+      if(!token){
+        token = (crypto.randomUUID ? crypto.randomUUID() : "session-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2));
+        sessionStorage.setItem("zalgoVisitorSession",token);
+      }
+      return token;
+    }catch(_){
+      if(!temporaryVisitorToken)temporaryVisitorToken = "session-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+      return temporaryVisitorToken;
+    }
+  }
+  async function updateVisitorCount(){
+    const pill = $("visitorStatus");
+    const label = $("visitorCount");
+    try{
+      const response = await fetch(API_BASE + "/api/visitors",{
+        method:"POST",
+        mode:"cors",
+        cache:"no-store",
+        credentials:"omit",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({token:getVisitorToken()})
+      });
+      if(!response.ok)throw new Error("Visitor counter unavailable");
+      const data = await response.json();
+      if(!data || !Number.isFinite(data.online))throw new Error("Invalid visitor count");
+      pill.classList.remove("unavailable");
+      label.textContent = data.online.toLocaleString("pt-BR") + (data.online === 1 ? " online" : " online");
+    }catch(_){
+      pill.classList.add("unavailable");
+      label.textContent = "Online indisponível";
+    }
   }
   async function checkApi(){
     const pill = $("apiStatus");
@@ -621,6 +663,8 @@
   updateCounts();
   renderHistory();
   checkApi();
+  updateVisitorCount();
+  window.setInterval(updateVisitorCount,30000);
   if("serviceWorker" in navigator){
     window.addEventListener("load",() => {
       navigator.serviceWorker.register("/sw.js").catch(error => console.warn("Service Worker:",error));
