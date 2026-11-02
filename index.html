@@ -205,6 +205,18 @@
       .result-area{min-height:175px}.btn.grow{flex:1 1 40%}
     }
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  
+    /* Ajustes extras de responsividade para celulares */
+    @media(max-width:560px){
+      html,body{max-width:100%;overflow-x:hidden}
+      .ad-728,.ad-468{display:none}
+      .ad-320{width:100%;max-width:100%;overflow:hidden}
+      .ad-unit{max-width:100%}
+      .card,.stack,.workspace{min-width:0}
+      input,select,textarea,button{max-width:100%}
+      .hero p,.sub,.info-note{overflow-wrap:anywhere}
+    }
+
   </style>
   <script defer src="/i18n.js?v=20261101-3"></script>
 </head>
