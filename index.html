@@ -171,7 +171,7 @@
     .ad-slot .ad-label{font-size:9px;font-weight:900;letter-spacing:1.6px;color:var(--soft)}
     .ad-slot small{font-size:10px;color:var(--soft)}
 
-    .ad-unit{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:100%;margin:12px auto 20px;padding:12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent);overflow:hidden}
+    .distributed-ad{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;width:min(100%,970px);min-height:70px;margin:18px auto;padding:10px;border:1px dashed var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent);overflow:hidden;text-align:center}.distributed-ad>span{font-size:9px;font-weight:900;letter-spacing:1.5px;color:var(--soft)}.distributed-ad>div{display:flex;justify-content:center;align-items:center;max-width:100%;overflow:hidden}.distributed-ad iframe{max-width:100%;border:0}.ad-160>div{min-height:300px}.ad-native>div{width:100%;min-height:100px}.distributed-ad script{max-width:100%}\n    .ad-unit{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:100%;margin:12px auto 20px;padding:12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent);overflow:hidden}
     .ad-top>.ad-label{display:block;width:100%;text-align:center;color:var(--soft);font-size:10px;font-weight:900;letter-spacing:1.5px}
     .ad-top-items{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:12px;width:100%;}
     .ad-top-item,.ad-top-native{display:flex;justify-content:center;align-items:center;max-width:100%;overflow:hidden;}
@@ -232,31 +232,7 @@
   </header>
 
   <main class="wrap">
-    <section class="ad-unit ad-top" aria-label="Publicidade">
-  <span class="ad-label">PUBLICIDADE</span>
-  <div class="ad-top-items">
-    <div class="ad-top-native">
-      <script async="async" data-cfasync="false" src="https://bauval.org/21/f19f5d5fd22d418c354409db284c8dae"></script>
-      <div id="container-f19f5d5fd22d418c354409db284c8dae"></div>
-    </div>
-    <div class="ad-top-item">
-      <script>atOptions = {'key':'4f61fb3c3233cb31e33b214d1b97d0a1','format':'iframe','height':300,'width':160,'params':{}};</script>
-      <script src="https://bauval.org/22/4f61fb3c3233cb31e33b214d1b97d0a1"></script>
-    </div>
-    <div class="ad-top-item">
-      <script>atOptions = {'key':'c83613b0afeab65cf288562e73e889be','format':'iframe','height':60,'width':468,'params':{}};</script>
-      <script src="https://bauval.org/22/c83613b0afeab65cf288562e73e889be"></script>
-    </div>
-    <div class="ad-top-item">
-      <script>atOptions = {'key':'029036fd7b0caf64566827d8a1e818df','format':'iframe','height':50,'width':320,'params':{}};</script>
-      <script src="https://bauval.org/22/029036fd7b0caf64566827d8a1e818df"></script>
-    </div>
-    <div class="ad-top-item">
-      <script>atOptions = {'key':'95d2d66d9dbdd5a012bd578edda00ac8','format':'iframe','height':90,'width':728,'params':{}};</script>
-      <script src="https://bauval.org/22/95d2d66d9dbdd5a012bd578edda00ac8"></script>
-    </div>
-  </div>
-</section>
+    <div class="distributed-ad ad-728" aria-label="Publicidade"><span>PUBLICIDADE</span><div><script>atOptions = {'key':'95d2d66d9dbdd5a012bd578edda00ac8','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://bauval.org/22/95d2d66d9dbdd5a012bd578edda00ac8"></script></div></div>
     <section class="hero">
       <span class="eyebrow">✦ Laboratório de texto</span>
       <h1>Dê outra dimensão às palavras.</h1>
@@ -269,6 +245,7 @@
         <span class="stat-pill visitor-pill" id="visitorStatus" aria-live="polite"><i class="visitor-dot" aria-hidden="true"></i><span id="visitorCount">Contando visitantes...</span></span>
       </div>
     </section>
+<div class="distributed-ad ad-native" aria-label="Publicidade"><span>PUBLICIDADE</span><div><script async="async" data-cfasync="false" src="https://bauval.org/21/f19f5d5fd22d418c354409db284c8dae"></script><div id="container-f19f5d5fd22d418c354409db284c8dae"></div></div></div>
 
 
 
@@ -276,7 +253,8 @@
 
     
 
-    <div class="workspace">
+    <div class="distributed-ad ad-468" aria-label="Publicidade"><span>PUBLICIDADE</span><div><script>atOptions = {'key':'c83613b0afeab65cf288562e73e889be','format':'iframe','height':60,'width':468,'params':{}};</script><script src="https://bauval.org/22/c83613b0afeab65cf288562e73e889be"></script></div></div>
+<div class="workspace">
 
     
       <section class="card">
@@ -336,6 +314,8 @@
         </div>
         <p class="status" id="status" role="status" aria-live="polite">Pronto para criar.</p>
       </section>
+<div class="distributed-ad ad-320" aria-label="Publicidade"><span>PUBLICIDADE</span><div><script>atOptions = {'key':'029036fd7b0caf64566827d8a1e818df','format':'iframe','height':50,'width':320,'params':{}};</script><script src="https://bauval.org/22/029036fd7b0caf64566827d8a1e818df"></script></div></div>
+
 
       <aside class="stack right-stack">
 
@@ -383,7 +363,8 @@
 
         
         <div class="info-note"><strong>Privacidade:</strong> os textos não são enviados a um servidor. O histórico e suas preferências ficam armazenados localmente no navegador deste dispositivo. Use a opção “Limpar histórico” para apagá-los.</div>
-      </aside>
+      <div class="distributed-ad ad-160" aria-label="Publicidade"><span>PUBLICIDADE</span><div><script>atOptions = {'key':'4f61fb3c3233cb31e33b214d1b97d0a1','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://bauval.org/22/4f61fb3c3233cb31e33b214d1b97d0a1"></script></div></div>
+</aside>
     </div>
   </main>
 
