@@ -59,7 +59,7 @@
       "Obrigado por visitar o Zalgo Lab!":"Thank you for visiting Zalgo Lab!","← Voltar ao gerador":"← Back to generator",
       "← Voltar ao criador":"← Back to creator","Loja oficial":"Official store","LOJA OFICIAL":"OFFICIAL STORE",
       "Desbloqueie o Zalgo Pro":"Unlock Zalgo Pro","Escolha o plano que combina com você.":"Choose the plan that works for you.",
-      "Pagamento ainda não disponível.":"Payment is not available yet.","Esta loja está em modo de demonstração.":"This store is in demo mode."
+      "Pagamento ainda não disponível.":"Payment is not available yet.","Esta loja está em modo de demonstração.":"This store is in demo mode.",
       "Os valores abaixo são os preços planejados; as assinaturas ainda não estão ativadas.":"The prices below are planned prices; subscriptions are not active yet.",
       "Mensal":"Monthly",
       "Total previsto: R$ 1,00 por mês":"Estimated total: R$ 1.00 per month",
@@ -134,7 +134,7 @@
       "Obrigado por visitar o Zalgo Lab!":"¡Gracias por visitar Zalgo Lab!","← Voltar ao gerador":"← Volver al generador",
       "← Voltar ao criador":"← Volver al creador","Loja oficial":"Tienda oficial","LOJA OFICIAL":"TIENDA OFICIAL",
       "Desbloqueie o Zalgo Pro":"Desbloquea Zalgo Pro","Escolha o plano que combina com você.":"Elige el plan que más te convenga.",
-      "Pagamento ainda não disponível.":"El pago aún no está disponible.","Esta loja está em modo de demonstração.":"Esta tienda está en modo de demostración."
+      "Pagamento ainda não disponível.":"El pago aún no está disponible.","Esta loja está em modo de demonstração.":"Esta tienda está en modo de demostración.",
       "Os valores abaixo são os preços planejados; as assinaturas ainda não estão ativadas.":"Los precios indicados son los previstos; las suscripciones aún no están activadas.",
       "Mensal":"Mensual",
       "Total previsto: R$ 1,00 por mês":"Total previsto: R$ 1,00 al mes",
@@ -209,7 +209,7 @@
       "Obrigado por visitar o Zalgo Lab!":"Zalgo Lab पर आने के लिए धन्यवाद!","← Voltar ao gerador":"← जनरेटर पर वापस जाएँ",
       "← Voltar ao criador":"← क्रिएटर पर वापस जाएँ","Loja oficial":"आधिकारिक स्टोर","LOJA OFICIAL":"आधिकारिक स्टोर",
       "Desbloqueie o Zalgo Pro":"Zalgo Pro अनलॉक करें","Escolha o plano que combina com você.":"अपने लिए उपयुक्त प्लान चुनें।",
-      "Pagamento ainda não disponível.":"भुगतान अभी उपलब्ध नहीं है।","Esta loja está em modo de demonstração.":"यह स्टोर डेमो मोड में है।"
+      "Pagamento ainda não disponível.":"भुगतान अभी उपलब्ध नहीं है।","Esta loja está em modo de demonstração.":"यह स्टोर डेमो मोड में है।",
       "Os valores abaixo são os preços planejados; as assinaturas ainda não estão ativadas.":"नीचे दी गई कीमतें प्रस्तावित हैं; सदस्यताएँ अभी सक्रिय नहीं हैं।",
       "Mensal":"मासिक",
       "Total previsto: R$ 1,00 por mês":"अनुमानित कुल: R$ 1,00 प्रति माह",
@@ -281,7 +281,7 @@
       "Obrigado por visitar o Zalgo Lab!":"Zalgo Labをご利用いただきありがとうございます。","← Voltar ao gerador":"← ジェネレーターに戻る",
       "← Voltar ao criador":"← クリエイターに戻る","Loja oficial":"公式ストア","LOJA OFICIAL":"公式ストア",
       "Desbloqueie o Zalgo Pro":"Zalgo Proをアンロック","Escolha o plano que combina com você.":"ご希望に合うプランを選択してください。",
-      "Pagamento ainda não disponível.":"お支払いはまだ利用できません。","Esta loja está em modo de demonstração.":"このストアはデモモードです。"
+      "Pagamento ainda não disponível.":"お支払いはまだ利用できません。","Esta loja está em modo de demonstração.":"このストアはデモモードです。",
       "Os valores abaixo são os preços planejados; as assinaturas ainda não estão ativadas.":"以下は予定価格です。サブスクリプションはまだ有効化されていません。",
       "Mensal":"月額",
       "Total previsto: R$ 1,00 por mês":"予定合計: 月額 R$ 1.00",
