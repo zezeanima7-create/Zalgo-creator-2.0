@@ -111,7 +111,10 @@
       "Zalgo Creator 2.0 no GitHub":"Zalgo Creator 2.0 on GitHub",
       "Esta política descreve o comportamento previsto pelo código atual do aplicativo. Configurações reais da hospedagem e serviços externos também podem ter políticas próprias.":"This policy describes the behavior intended by the app's current code. Actual hosting settings and external services may also have their own policies.",
       "← Voltar ao Zalgo Creator 2.0":"← Back to Zalgo Creator 2.0",
-      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · Credits: Zeze Anima"
+      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · Credits: Zeze Anima",
+      "Privacidade — Zalgo Creator 2.0":"Privacy — Zalgo Creator 2.0",
+      "Créditos | Zalgo Lab":"Credits | Zalgo Lab",
+      "Loja — Zalgo Creator 2.0":"Store — Zalgo Creator 2.0"
     },
     es: {
       "Privacidade":"Privacidad","Tema claro":"Tema claro","Tema escuro":"Tema oscuro","Alternar tema":"Cambiar tema","Idioma":"Idioma",
@@ -214,7 +217,10 @@
       "Zalgo Creator 2.0 no GitHub":"Zalgo Creator 2.0 en GitHub",
       "Esta política descreve o comportamento previsto pelo código atual do aplicativo. Configurações reais da hospedagem e serviços externos também podem ter políticas próprias.":"Esta política describe el comportamiento previsto por el código actual de la aplicación. La configuración real del alojamiento y los servicios externos también pueden tener sus propias políticas.",
       "← Voltar ao Zalgo Creator 2.0":"← Volver a Zalgo Creator 2.0",
-      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · Créditos: Zeze Anima"
+      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · Créditos: Zeze Anima",
+      "Privacidade — Zalgo Creator 2.0":"Privacidad — Zalgo Creator 2.0",
+      "Créditos | Zalgo Lab":"Créditos | Zalgo Lab",
+      "Loja — Zalgo Creator 2.0":"Tienda — Zalgo Creator 2.0"
     },
     hi: {
       "Privacidade":"गोपनीयता","Tema claro":"लाइट थीम","Tema escuro":"डार्क थीम","Alternar tema":"थीम बदलें","Idioma":"भाषा",
@@ -315,7 +321,10 @@
       "Zalgo Creator 2.0 no GitHub":"GitHub पर Zalgo Creator 2.0",
       "Esta política descreve o comportamento previsto pelo código atual do aplicativo. Configurações reais da hospedagem e serviços externos também podem ter políticas próprias.":"यह नीति ऐप के वर्तमान कोड के अनुसार अपेक्षित व्यवहार बताती है। होस्टिंग और बाहरी सेवाओं की अपनी नीतियाँ भी हो सकती हैं।",
       "← Voltar ao Zalgo Creator 2.0":"← Zalgo Creator 2.0 पर वापस जाएँ",
-      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · श्रेय: Zeze Anima"
+      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · श्रेय: Zeze Anima",
+      "Privacidade — Zalgo Creator 2.0":"गोपनीयता — Zalgo Creator 2.0",
+      "Créditos | Zalgo Lab":"श्रेय | Zalgo Lab",
+      "Loja — Zalgo Creator 2.0":"स्टोर — Zalgo Creator 2.0"
     },
     ja: {
       "Privacidade":"プライバシー","Tema claro":"ライトテーマ","Tema escuro":"ダークテーマ","Alternar tema":"テーマを切り替え","Idioma":"言語",
@@ -415,7 +424,10 @@
       "Zalgo Creator 2.0 no GitHub":"GitHub上のZalgo Creator 2.0",
       "Esta política descreve o comportamento previsto pelo código atual do aplicativo. Configurações reais da hospedagem e serviços externos também podem ter políticas próprias.":"このポリシーは、アプリの現行コードで想定される動作を説明しています。実際のホスティング設定や外部サービスには、独自のポリシーが適用される場合があります。",
       "← Voltar ao Zalgo Creator 2.0":"← Zalgo Creator 2.0に戻る",
-      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · クレジット: Zeze Anima"
+      "Zalgo Creator 2.0 · Créditos: Zeze Anima":"Zalgo Creator 2.0 · クレジット: Zeze Anima",
+      "Privacidade — Zalgo Creator 2.0":"プライバシー — Zalgo Creator 2.0",
+      "Créditos | Zalgo Lab":"クレジット | Zalgo Lab",
+      "Loja — Zalgo Creator 2.0":"ストア — Zalgo Creator 2.0"
     }
   };
 
@@ -499,6 +511,7 @@
   function applyLanguage() {
     const lang = language === "pt" ? "pt-BR" : language;
     document.documentElement.lang = lang;
+    document.title = translate(document.title);
     const select = buildSelector();
     if (select) select.value = language;
     if (language === "pt") return;
