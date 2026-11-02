@@ -1,9 +1,10 @@
 "use strict";
 
-const CACHE_NAME = "zalgo-creator-v3";
+const CACHE_NAME = "zalgo-creator-v4-languages";
 const FILES = [
   "/",
   "/index.html",
+  "/i18n.js",
   "/privacy.html",
   "/manifest.json",
   "/icon.svg"
