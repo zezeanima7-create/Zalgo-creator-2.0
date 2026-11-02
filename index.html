@@ -171,20 +171,17 @@
     .ad-slot .ad-label{font-size:9px;font-weight:900;letter-spacing:1.6px;color:var(--soft)}
     .ad-slot small{font-size:10px;color:var(--soft)}
 
-    .ad-unit{display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:6px;width:100%;overflow:hidden;margin:0 auto 18px;padding:10px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent)}
+    .ad-unit{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:100%;margin:12px auto 20px;padding:12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent);overflow:hidden}
+    .ad-top>.ad-label{display:block;width:100%;text-align:center;color:var(--soft);font-size:10px;font-weight:900;letter-spacing:1.5px}
+    .ad-top-items{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:12px;width:100%;}
+    .ad-top-item,.ad-top-native{display:flex;justify-content:center;align-items:center;max-width:100%;overflow:hidden;}
+    .ad-top-native{width:100%;min-height:100px}
+    .ad-top-native #container-f19f5d5fd22d418c354409db284c8dae{max-width:100%;overflow:hidden}
+    .ad-top iframe{max-width:100%;border:0}
     .ad-unit>div{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:100%;text-align:center;overflow:hidden}
     .ad-unit .ad-label{display:block;position:relative;order:-1;width:100%;text-align:center;margin:0 0 5px;color:var(--soft);font-size:10px;font-weight:900;letter-spacing:1.5px;line-height:1.4}
     .ad-unit iframe{max-width:100%;border:0}
-    .ad-320{max-width:336px;min-height:66px}
-    .ad-468{max-width:484px;min-height:76px}
-    .ad-300{max-width:316px;min-height:274px}
-    .ad-native{display:block;max-width:100%;min-height:120px;padding:10px}
-    .ad-728{max-width:744px;min-height:106px}
-    .ad-side{width:100%;max-width:180px;min-height:620px;margin:0 auto 18px}
-    .ad-side-300{min-height:320px}
-    @media(max-width:780px){.ad-side{display:none}.ad-728{max-width:100%;overflow-x:auto}}
-
-    .ad-native #container-f19f5d5fd22d418c354409db284c8dae{width:100%;min-height:100px}
+    @media(max-width:780px){.ad-top-items{gap:9px}.ad-top-item{max-width:100%}}
 
     .api-pill{display:inline-flex;align-items:center;gap:6px}
     .api-dot{width:7px;height:7px;border-radius:50%;background:var(--warn);display:inline-block}
@@ -211,9 +208,7 @@
     /* Ajustes extras de responsividade para celulares */
     @media(max-width:560px){
       html,body{max-width:100%;overflow-x:hidden}
-      .ad-728,.ad-468{display:none}
-      .ad-320{width:100%;max-width:100%;overflow:hidden}
-      .ad-unit{max-width:100%}
+      .ad-top{max-width:100%}.ad-top-items{flex-direction:column;align-items:center}.ad-top-item{width:100%;}
       .card,.stack,.workspace{min-width:0}
       input,select,textarea,button{max-width:100%}
       .hero p,.sub,.info-note{overflow-wrap:anywhere}
@@ -237,6 +232,34 @@
   </header>
 
   <main class="wrap">
+    <section class="ad-unit ad-top" aria-label="Publicidade">
+  <span class="ad-label">PUBLICIDADE</span>
+  <div class="ad-top-items">
+    <div class="ad-top-native">
+      <script async="async" data-cfasync="false" src="https://bauval.org/21/f19f5d5fd22d418c354409db284c8dae"></script>
+      <div id="container-f19f5d5fd22d418c354409db284c8dae"></div>
+    </div>
+    <div class="ad-top-item">
+      <script>atOptions = {'key':'4f61fb3c3233cb31e33b214d1b97d0a1','format':'iframe','height':300,'width':160,'params':{}};</script>
+      <script src="https://bauval.org/22/4f61fb3c3233cb31e33b214d1b97d0a1"></script>
+    </div>
+    <div class="ad-top-item">
+      <script>atOptions = {'key':'c83613b0afeab65cf288562e73e889be','format':'iframe','height':60,'width':468,'params':{}};</script>
+      <script src="https://bauval.org/22/c83613b0afeab65cf288562e73e889be"></script>
+    </div>
+    <div class="ad-top-item">
+      <script>atOptions = {'key':'029036fd7b0caf64566827d8a1e818df','format':'iframe','height':50,'width':320,'params':{}};</script>
+      <script src="https://bauval.org/22/029036fd7b0caf64566827d8a1e818df"></script>
+    </div>
+    <div class="ad-top-item">
+      <script>atOptions = {'key':'95d2d66d9dbdd5a012bd578edda00ac8','format':'iframe','height':90,'width':728,'params':{}};</script>
+      <script src="https://bauval.org/22/95d2d66d9dbdd5a012bd578edda00ac8"></script>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <main class="wrap">
     <section class="hero">
       <span class="eyebrow">✦ Laboratório de texto</span>
       <h1>Dê outra dimensão às palavras.</h1>
@@ -252,32 +275,13 @@
 
 
 
-    <section class="ad-unit ad-728" aria-label="Publicidade">
-      <div><span class="ad-label">PUBLICIDADE</span>
-        <script>atOptions = {'key':'0f484fdc31c4c1423d0e810daab09cf4','format':'iframe','height':90,'width':728,'params':{}};</script>
-        <script src="https://bauval.org/22/0f484fdc31c4c1423d0e810daab09cf4"></script>
-      </div>
-    </section>
+    
 
-    <section class="ad-unit ad-468" aria-label="Publicidade">
-      <div><span class="ad-label">PUBLICIDADE</span>
-        <script>
-          atOptions = {'key':'c83613b0afeab65cf288562e73e889be','format':'iframe','height':60,'width':468,'params':{}};
-        </script>
-        <script src="https://bauval.org/22/c83613b0afeab65cf288562e73e889be"></script>
-      </div>
-    </section>
+    
 
     <div class="workspace">
 
-    <section class="ad-unit ad-320" aria-label="Publicidade">
-      <div><span class="ad-label">PUBLICIDADE</span>
-        <script>
-          atOptions = {'key':'029036fd7b0caf64566827d8a1e818df','format':'iframe','height':50,'width':320,'params':{}};
-        </script>
-        <script src="https://bauval.org/22/029036fd7b0caf64566827d8a1e818df"></script>
-      </div>
-    </section>
+    
       <section class="card">
         <div class="card-head">
           <div><h2>✍️ Área de criação</h2><p class="sub">Escreva ou cole o texto que deseja transformar.</p></div>
@@ -338,18 +342,8 @@
 
       <aside class="stack right-stack">
 
-        <section class="ad-unit ad-side" aria-label="Publicidade">
-          <div><span class="ad-label">PUBLICIDADE</span>
-            <script>atOptions = {'key':'2d983bdcb71a625a6000abf4569782bb','format':'iframe','height':600,'width':160,'params':{}};</script>
-            <script src="https://bauval.org/22/2d983bdcb71a625a6000abf4569782bb"></script>
-          </div>
-        </section>
-        <section class="ad-unit ad-side ad-side-300" aria-label="Publicidade">
-          <div><span class="ad-label">PUBLICIDADE</span>
-            <script>atOptions = {'key':'4f61fb3c3233cb31e33b214d1b97d0a1','format':'iframe','height':300,'width':160,'params':{}};</script>
-            <script src="https://bauval.org/22/4f61fb3c3233cb31e33b214d1b97d0a1"></script>
-          </div>
-        </section>
+        
+        
 
         <section class="card result-card">
           <div class="card-head">
@@ -368,14 +362,7 @@
         </section>
 
 
-        <section class="ad-unit ad-300" aria-label="Publicidade">
-          <div><span class="ad-label">PUBLICIDADE</span>
-            <script>
-              atOptions = {'key':'f8197e220f00d357443c3b9ca0584290','format':'iframe','height':250,'width':300,'params':{}};
-            </script>
-            <script src="https://bauval.org/22/f8197e220f00d357443c3b9ca0584290"></script>
-          </div>
-        </section>
+        
         <section class="card">
           <div class="card-head"><div><h2>🛠️ Ferramentas rápidas</h2><p class="sub">Aplicadas ao texto original.</p></div></div>
           <div class="tools-grid">
@@ -397,12 +384,7 @@
         </section>
 
 
-        <section class="ad-unit ad-native" aria-label="Publicidade nativa">
-          <div style="width:100%"><span class="ad-label">PUBLICIDADE</span>
-            <script async="async" data-cfasync="false" src="https://bauval.org/21/f19f5d5fd22d418c354409db284c8dae"></script>
-            <div id="container-f19f5d5fd22d418c354409db284c8dae"></div>
-          </div>
-        </section>
+        
         <div class="info-note"><strong>Privacidade:</strong> os textos não são enviados a um servidor. O histórico e suas preferências ficam armazenados localmente no navegador deste dispositivo. Use a opção “Limpar histórico” para apagá-los.</div>
       </aside>
     </div>
@@ -414,13 +396,7 @@
       <div><a href="/privacy.html">Política de privacidade</a> · <a href="https://github.com/zezeanima7-create/Zalgo-creator-2.0" target="_blank" rel="noopener noreferrer">Código-fonte</a> · <a href="#source">Voltar ao topo ↑</a></div>
     </div>
   </footer>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-
-  <!-- Social Bar da rede de anúncios -->
-  <script data-cfasync="false" src="https://bauval.org/14/6c458906fea85bd91150030104ac989d"></script>
-
-  <script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div><script>
   "use strict";
   const $ = id => document.getElementById(id);
   const source = $("source");
