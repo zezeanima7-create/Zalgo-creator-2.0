@@ -171,8 +171,10 @@
     .ad-slot .ad-label{font-size:9px;font-weight:900;letter-spacing:1.6px;color:var(--soft)}
     .ad-slot small{font-size:10px;color:var(--soft)}
 
-    .ad-unit{display:flex;justify-content:center;align-items:center;width:100%;overflow:hidden;margin:0 auto 18px;padding:8px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent)}
-    .ad-unit .ad-label{display:block;text-align:center;margin-bottom:5px;color:var(--soft);font-size:9px;font-weight:900;letter-spacing:1.5px}
+    .ad-unit{display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:6px;width:100%;overflow:hidden;margin:0 auto 18px;padding:10px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 75%,transparent)}
+    .ad-unit>div{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:100%;text-align:center;overflow:hidden}
+    .ad-unit .ad-label{display:block;position:relative;order:-1;width:100%;text-align:center;margin:0 0 5px;color:var(--soft);font-size:10px;font-weight:900;letter-spacing:1.5px;line-height:1.4}
+    .ad-unit iframe{max-width:100%;border:0}
     .ad-320{max-width:336px;min-height:66px}
     .ad-468{max-width:484px;min-height:76px}
     .ad-300{max-width:316px;min-height:274px}
