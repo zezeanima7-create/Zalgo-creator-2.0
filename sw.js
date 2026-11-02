@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "zalgo-creator-v6-languages";
+const CACHE_NAME = "zalgo-creator-v7-popunder-smartlink";
 const FILES = [
   "/",
   "/index.html",
