@@ -281,8 +281,7 @@
     select.addEventListener("change", () => {
       const next = supported.includes(select.value) ? select.value : "pt";
       try { localStorage.setItem("zalgoCreatorLanguageV1", next); } catch (_) {}
-      language = next;
-      applyLanguage();
+      location.reload();
     });
     const actions = document.querySelector(".nav-actions");
     if (actions) actions.insertBefore(select, actions.querySelector("#themeBtn"));
